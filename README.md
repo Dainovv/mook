@@ -1,16 +1,36 @@
-# ทำความรู้จักกันหน่อยไหม 🌿
+# พี่มุกน่าร้ากก 🌿
 
-หน้าเว็บเล็กๆ (single-page, static HTML) สำหรับชวนทำความรู้จักกันแบบสนุกๆ ไม่กดดัน — มี mini-quiz แนะนำตัว, เกมทายไม้เทนนิส, และ tier-list สถานที่เดท
+หน้าเว็บเล็กๆ ทำให้พี่มุกเล่น — mini quiz, tier-list ที่เที่ยว,
+ปฏิทินย้อนหลัง 2 อาทิตย์ และหน้าสรุปที่กดคัดลอกส่งกลับมาได้
+
+**ลิงก์:** https://dainovv.github.io/mook/
 
 ## โครงสร้าง
 
-- `index.html` — ทุกอย่างอยู่ในไฟล์เดียว (HTML/CSS/JS inline) ไม่มี dependency ภายนอก
-- `assets/music.mp3` — เพลงประกอบ "Carefree" โดย Kevin MacLeod (incompetech.com), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+ดู [docs/STRUCTURE.md](docs/STRUCTURE.md) — มีวิธีเพิ่มหน้าใหม่
+และตารางบอกว่าเนื้อหาแต่ละส่วนแก้ที่ตัวแปรไหน
+
+สรุปสั้นๆ:
+
+- `index.html` — หน้าหลัก (ห้ามย้ายออกจาก root ไม่งั้นลิงก์พัง)
+- `assets/` — เพลง, CSS/JS ถ้าแยกออกวันหลัง
+- `pages/` — หน้าใหม่ๆ ในอนาคต
+- `diary/` — ไดอารี่ส่วนตัว **ไม่ขึ้น GitHub** (`.gitignore` กันไว้)
+- `docs/` — โน้ตโปรเจกต์
 
 ## รันในเครื่อง
 
-เปิด `index.html` ในเบราว์เซอร์ได้เลย ไม่ต้องมี build step หรือ server
+เปิด `index.html` ในเบราว์เซอร์ได้เลย ไม่ต้อง build ไม่ต้องรัน server
 
 ## Deploy
 
-Deploy ผ่าน [GitHub Pages](https://pages.github.com/) — ฟรี, ไม่ต้องมี backend
+push ขึ้น `main` แล้ว GitHub Pages เอาขึ้นเองภายใน ~1 นาที
+
+```bash
+git add -A && git commit -m "..." && git push origin main
+```
+
+## เครดิตเพลง
+
+"Carefree" โดย Kevin MacLeod (incompetech.com) — CC BY 4.0
+ต้องคงเครดิตท้ายเว็บไว้ตามไลเซนส์

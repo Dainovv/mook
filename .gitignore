@@ -1,0 +1,14 @@
+# Private diary — never pushed. The repo is public, so anything
+# committed here would be readable by anyone with the link.
+diary/entries/
+diary/*.md
+!diary/README.md
+!diary/TEMPLATE.md
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
