@@ -483,6 +483,38 @@
 
   .copy-hint-manual.show { display: block; }
 
+  /* Little "note from Daino" panels on the intro / outro */
+  .note-card {
+    background: var(--cream);
+    border-left: 4px solid var(--sage);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 0 0 18px;
+  }
+
+  .note-card.highlight {
+    background: linear-gradient(135deg, #fff5ec, #fdf1f0);
+    border-left-color: var(--peach-deep);
+    text-align: center;
+  }
+
+  .note-line {
+    margin: 0 0 8px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .note-line:last-child { margin-bottom: 0; }
+
+  .note-card.highlight .note-line b { color: var(--brown); }
+
+  .note-arrow {
+    font-size: 0.85rem !important;
+    font-weight: 700;
+    color: var(--peach-deep);
+    margin-top: 10px !important;
+  }
+
   .summary-box {
     background: var(--cream);
     border-radius: 16px;
@@ -675,14 +707,27 @@
       <div class="emoji-hero">🌿✨</div>
       <h1>เฮ้ พี่มุก 👋</h1>
       <p>
-        <b>Thitiwut</b> นะ หรือเรียก <b>Daino</b> ก็ได้ 😊
+        ผม <b>Thitiwut</b> นะครับ เรียก <b>Daino</b> ก็ได้ 😊
+      </p>
+
+      <div class="note-card">
+        <p class="note-line">🎬 คืนนี้ผมไปดูหนังรอบ <b>19:30</b> นะครับ</p>
+        <p class="note-line">
+          หนังยาว <b>145 นาที</b> เลยน่าจะเสร็จดึกเลย
+          คืนนี้คงไม่ได้คอลคุยกันเหมือนปกติ 🥲
+        </p>
+        <p class="note-line">
+          ถ้าผมกลับดึกเกิน พิมพ์บอกไว้หน่อยน้าา
+          ว่านอนแล้ว หรือเล่นเกมอยู่ 👀
+        </p>
+      </div>
+
+      <p>
+        เลยทำอันนี้ไว้ให้พี่เล่นแก้เบื่อระหว่างรอผม
+        จะได้ไม่คิดถึงผมมากนะครับ ><
       </p>
       <p>
-        ว่างๆ เลยทำอะไรเล่นๆ ให้พี่ดู มีคำถามให้ตอบไม่กี่ข้อ
-        แล้วมีเกมแถมมาให้ด้วยอันนึง
-      </p>
-      <p>
-        ไม่นานเลย ลองดูไหม?
+        มีคำถามไม่กี่ข้อ แถมเกมมาให้อันนึง ไม่นานเลย ลองดูไหม?
       </p>
       <div class="btn-row">
         <button class="btn" id="yesIntro" onclick="startJourney()">เริ่มเลย 🌸</button>
@@ -701,8 +746,8 @@
     <div class="screen" id="screen-tier">
       <div class="progress-bar"><div class="progress-fill" id="tierProgress"></div></div>
       <div class="progress-label" id="tierProgressLabel">สถานที่ 1 / 9</div>
-      <h1 style="text-align:center; font-size:1.15rem;">ถ้าได้ไปเที่ยวด้วยกัน 🌿</h1>
-      <p style="text-align:center;">ที่พวกนี้พี่ชอบแค่ไหน?</p>
+      <h1 style="text-align:center; font-size:1.15rem;">ถ้าได้ไปเที่ยวกับผม 🌿</h1>
+      <p style="text-align:center;">ที่พวกนี้พี่มุกชอบแค่ไหนครับ?</p>
       <div class="tier-place">
         <div class="place-emoji" id="placeEmoji"></div>
         <div class="place-name" id="placeName"></div>
@@ -718,7 +763,7 @@
           <span class="tier-emoji">❌</span>ไม่เอา
         </button>
       </div>
-      <input type="text" class="other-input show" id="tierNote" placeholder="มีร้านในใจอยู่แล้วก็พิมพ์บอกได้นะ">
+      <input type="text" class="other-input show" id="tierNote" placeholder="มีร้านในใจอยู่แล้วก็พิมพ์บอกผมได้น้าา">
       <div class="btn-row">
         <button class="btn secondary" onclick="nextTier()" id="tierNextBtn" disabled>ถัดไป →</button>
       </div>
@@ -728,18 +773,18 @@
     <div class="screen" id="screen-summary">
       <div class="emoji-hero">🎁</div>
       <h1 style="text-align:center;">จบแล้ว เย้ 🎉</h1>
-      <p style="text-align:center;">สรุปมาให้แล้ว ✨</p>
+      <p style="text-align:center;">ผมสรุปมาให้แล้วครับ ✨</p>
       <div id="summaryContainer"></div>
       <div class="heart-divider">• • •</div>
 
       <div class="copy-box">
-        <p class="copy-title">ส่งคำตอบให้ไดโน่ 💛</p>
+        <p class="copy-title">ส่งคำตอบมาให้ผมด้วยน้าา 💛</p>
         <p class="copy-steps">
-          กดปุ่มข้างล่างนี้ <b>1 ครั้ง</b> แล้วไปวางในแชท<br>
-          <span class="copy-steps-small">(กดปุ่ม = คัดลอกให้เลย ไม่ต้องพิมพ์เอง)</span>
+          กดปุ่มข้างล่างนี้ <b>1 ครั้ง</b> แล้วไปวางในแชทส่งผม<br>
+          <span class="copy-steps-small">(กดปุ่ม = ผมคัดลอกให้เลย ไม่ต้องพิมพ์เอง)</span>
         </p>
         <button class="btn copy-btn" id="copyBtn" onclick="copySummary()">📋 คัดลอกคำตอบ</button>
-        <p class="copy-done" id="copyDone">คัดลอกแล้ว ✓ ไปวางในแชทส่งให้ไดโน่ได้เลย 🌸</p>
+        <p class="copy-done" id="copyDone">คัดลอกแล้ว ✓ ไปวางในแชทส่งผมได้เลย 🌸</p>
         <textarea class="copy-fallback" id="copyFallback" readonly></textarea>
         <p class="copy-hint-manual" id="copyManualHint">กดค้างที่ข้อความข้างบน → เลือกทั้งหมด → Copy แล้วไปวางในแชทได้เลยนะ</p>
       </div>
@@ -754,9 +799,21 @@
       <div class="emoji-hero">💛</div>
       <h1 style="text-align:center;">ขอบคุณที่เล่นให้จนจบนะ 💛</h1>
       <p style="text-align:center;">
-        ว่างๆ มาคุยกันต่อได้เลยนะ<br>
+        ผมออกจากโรงแล้วจะรีบทักไปน้าา<br>
         รออยู่ 🌿
       </p>
+
+      <div class="note-card highlight">
+        <p class="note-line">
+          <b>ถ้าดึกมากแล้วง่วง จะนอนก่อนก็ได้นะครับ</b>
+        </p>
+        <p class="note-line">
+          แต่<b>ทักบอกผมไว้ใน IG หน่อยน้าา</b> ว่านอนแล้ว
+          เดี๋ยวผมกลับมาไม่เห็นจะคิดถึง 🥲
+        </p>
+        <p class="note-line note-arrow">กดปุ่มข้างล่างนี้ทักได้เลย 👇</p>
+      </div>
+
       <div class="btn-row">
         <a class="btn" id="yesOutro" href="https://www.instagram.com/dainodainov/" target="_blank" rel="noopener noreferrer">
           ทักมาที่ IG @dainodainov 💬
@@ -794,23 +851,23 @@ const state = {
 
 /* ---------- Quiz data ---------- */
 const RACKET_WRONG_OPTIONS = [
-  { label: 'Wilson Blade 98', reply: 'อันนี้ก็ดีนะ แต่ยังไม่ใช่ 🎾' },
-  { label: 'Wilson Clash 100', reply: 'เกือบละ ลองอีกที 👀' },
-  { label: 'Wilson Ultra Tour', reply: 'ไม่ใช่อันนี้ด้วย 😌' },
-  { label: 'Wilson Pro Staff', reply: 'ก็ไม่ใช่ 😳 เอ๊ะ หรือจะไม่มีคำตอบที่ถูก?' }
+  { label: 'Wilson Blade 98', reply: 'อันนี้ก็ดีนะครับ แต่ยังไม่ใช่ 🎾' },
+  { label: 'Wilson Clash 100', reply: 'เกือบละ ลองอีกทีน้าา 👀' },
+  { label: 'Wilson Ultra Tour', reply: 'ก็ไม่ใช่อันนี้ด้วย 😌' },
+  { label: 'Wilson Pro Staff', reply: 'ไม่ใช่อีกแล้ว 😳 เอ๊ะ หรือจะไม่มีข้อถูก?' }
 ];
 
 const QUIZ_QUESTIONS = [
   {
     id: 'hobby',
     type: 'racket-trick',
-    question: 'เล่นเทนนิสอยู่ ลงแข่งบ่อยด้วย 🎾<br>ทายซิว่าอยากได้อะไรต่อไป?',
+    question: 'ผมเล่นเทนนิสอยู่ ลงแข่งบ่อยด้วยนะครับ 🎾<br>ทายซิว่าผมอยากได้อะไรต่อไป?',
     summaryLabel: '🎾 สิ่งที่อยากได้ต่อไป'
   },
   {
     id: 'food',
     type: 'choice',
-    question: 'ของกินสายไหน? 🍮🍜',
+    question: 'พี่มุกสายของกินแบบไหนครับ? 🍮🍜',
     summaryLabel: '🍮🍜 ของกินที่ชอบ',
     options: ['สายหวาน ชานม เบเกอรี่', 'สายเผ็ด ยิ่งเผ็ดยิ่งดี', 'ได้หมด ไม่เรื่องมาก', 'แล้วแต่วันเลย']
   },
@@ -828,8 +885,8 @@ const QUIZ_QUESTIONS = [
     type: 'choice',
     multi: true,
     perOptionNote: true,
-    question: 'ปกติเล่นเกมแนวไหน? 🎮',
-    hint: 'เลือกได้หลายอัน แล้วพิมพ์ชื่อเกมต่อท้ายได้เลย',
+    question: 'พี่มุกปกติเล่นเกมแนวไหนครับ? 🎮',
+    hint: 'เลือกได้หลายอัน แล้วพิมพ์ชื่อเกมต่อท้ายได้เลยน้าา',
     summaryLabel: '🎮 เกมที่เล่น',
     options: ['เกมมือถือ MOBA', 'เกมเนื้อเรื่องยาวๆ', 'เกมชิลๆ ฮีลใจ', 'ไม่ค่อยได้เล่น']
   }
@@ -1142,7 +1199,7 @@ function renderRacketTrick(q, container) {
     html += `<div class="option" data-ridx="${i}" onclick="clickRacketOption(${i})">${opt.label}</div>`;
   });
   html += `</div>`;
-  html += `<div class="btn-row"><button class="btn secondary" id="quizNextBtn" disabled style="opacity:0.4;">ลองกดดูให้ครบก่อนนะ 👀</button></div>`;
+  html += `<div class="btn-row"><button class="btn secondary" id="quizNextBtn" disabled style="opacity:0.4;">ลองกดดูให้ครบก่อนน้าา 👀</button></div>`;
   container.innerHTML = html;
 }
 
@@ -1167,7 +1224,7 @@ function revealSpecialOption() {
   const special = document.createElement('div');
   special.className = 'option special';
   special.id = 'specialOption';
-  special.innerHTML = `พี่มุก <span style="display:block; font-weight:400; font-size:0.82rem; margin-top:4px; color:var(--brown-soft);">อยากได้คนนี้มากกว่าไม้เทนนิสอีก 🎾💛</span>`;
+  special.innerHTML = `พี่มุก <span style="display:block; font-weight:400; font-size:0.82rem; margin-top:4px; color:var(--brown-soft);">ผมอยากได้คนนี้มากกว่าไม้เทนนิสอีกครับ 🎾💛</span>`;
   special.onclick = selectSpecialOption;
   container.appendChild(special);
   spawnConfetti();
@@ -1294,18 +1351,18 @@ const NO_SLOTS = [
 ];
 
 const BEG_LINES = [
-  'จะไม่คุยกันแล้วจริงๆ เหรอ 🥺',
-  'ไม่อยากรู้จักกันอีกแล้วเหรอ... 😢',
-  'ขอโอกาสอีกนิดนะ นะ นะ 🙏',
-  'อย่าเลย เดี๋ยวเหงา 🥹',
-  'กดผิดใช่ไหม บอกมาตรงๆ ได้นะ 👀'
+  'จะไม่คุยกับผมแล้วจริงๆ เหรอครับ 🥺',
+  'คืนนี้ไม่คอลกันแล้วเหรอ... 😢',
+  'ขอโอกาสอีกนิดนะ นะ นะครับ 🙏',
+  'อย่าเลยน้าา เดี๋ยวผมเหงา 🥹',
+  'กดผิดใช่ไหมครับ บอกผมตรงๆ ได้นะ 👀'
 ];
 
 const NO_TAUNTS = [
-  'เอ๊ะ ยังจะกดอีก 👀',
-  'กดไปก็เท่านั้นนะ 😌',
-  'ปุ่มนี้เริ่มเหนื่อยแล้ว 😮‍💨',
-  'ลองกดอีกอันสิ น่า~ 🌸'
+  'เอ๊ะ ยังจะกดอีกเหรอครับ 👀',
+  'กดไปก็เท่านั้นนะครับ 😌',
+  'ปุ่มนี้เริ่มเหนื่อยแล้วน้าา 😮‍💨',
+  'ลองกดอีกอันสิครับ น่าา~ 🌸'
 ];
 
 function clampToScreen(el, x, y) {
@@ -1360,7 +1417,7 @@ function pressNo(which) {
     noBtn.style.transform = 'scale(0.3) rotate(20deg)';
     setTimeout(() => noBtn.remove(), 420);
     showBeg(
-      'กดเพลินเลยนะ 😝<br>จริงๆ อยากไปต่อใช่ไหมล่ะ<br>กดไปต่อได้แล้ว อย่าลีลา 5555',
+      'กดเพลินเลยนะครับ 😝<br>จริงๆ อยากไปต่อใช่ไหมล่ะ<br>กดไปต่อได้แล้วน้าา อย่าลีลา 5555',
       { emoji: '😝', big: true, autoCloseMs: 6000 }
     );
     spawnConfetti();
