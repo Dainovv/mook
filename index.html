@@ -523,9 +523,14 @@
     margin: 0 0 18px;
   }
 
+  .lock-input-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+
   .lock-input {
     width: 100%;
-    padding: 14px;
+    padding: 14px 48px 14px 20px;
     border: 2px solid #f0e4d6;
     border-radius: 14px;
     font-size: 1.5rem;
@@ -534,8 +539,33 @@
     letter-spacing: 6px;
     color: var(--brown);
     background: var(--cream);
-    margin-bottom: 14px;
   }
+
+  .lock-eye {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+    opacity: 0.75;
+  }
+
+  .lock-eye:hover {
+    background: #f6ece1;
+    opacity: 1;
+  }
+
+  .lock-eye:active { transform: translateY(-50%) scale(0.9); }
 
   .lock-input:focus {
     outline: none;
@@ -891,15 +921,23 @@
     <div class="lock-emoji">🔒</div>
     <h1 class="lock-title">ใส่รหัสก่อนนะครับ</h1>
     <p class="lock-hint">พี่มุกรู้รหัสอยู่แล้ว 😉</p>
-    <input
-      type="text"
-      inputmode="numeric"
-      autocomplete="off"
-      maxlength="6"
-      class="lock-input"
-      id="lockInput"
-      placeholder="• • • • • •"
-      aria-label="รหัสผ่าน">
+    <div class="lock-input-wrap">
+      <input
+        type="password"
+        inputmode="numeric"
+        autocomplete="off"
+        maxlength="6"
+        class="lock-input"
+        id="lockInput"
+        placeholder="• • • • • •"
+        aria-label="รหัสผ่าน">
+      <button
+        type="button"
+        class="lock-eye"
+        id="lockEye"
+        onclick="togglePasscode()"
+        aria-label="ดูรหัส">👁️</button>
+    </div>
     <p class="lock-error" id="lockError">ไม่ใช่รหัสนี้น้าา ลองอีกที 👀</p>
     <button class="btn" onclick="tryUnlock()">เข้าไปดู 🌸</button>
   </div>
@@ -1088,6 +1126,17 @@
    Client-side only, so the code below is visible to anyone who reads
    this file. It exists to keep casual visitors out, nothing more. */
 const PASSCODE = '270769';
+
+function togglePasscode() {
+  const input = document.getElementById('lockInput');
+  const eye = document.getElementById('lockEye');
+  const hidden = input.type === 'password';
+
+  input.type = hidden ? 'text' : 'password';
+  eye.textContent = hidden ? '🙈' : '👁️';
+  eye.setAttribute('aria-label', hidden ? 'ซ่อนรหัส' : 'ดูรหัส');
+  input.focus();
+}
 
 function tryUnlock() {
   const input = document.getElementById('lockInput');
