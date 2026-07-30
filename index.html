@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ทำความรู้จักกันหน่อยไหม 🌿</title>
+<style>
+  :root {
+    --cream: #fdf6ee;
+    --peach: #ffd9c2;
+    --peach-deep: #ffb08a;
+    --sage: #b8c9a8;
+    --sage-deep: #8ba876;
+    --brown: #5c4a3d;
+    --brown-soft: #8a7568;
+    --pink: #f4a6a0;
+    --white: #ffffff;
+    --shadow: 0 8px 24px rgba(140, 110, 80, 0.15);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(160deg, var(--cream) 0%, #fff0e3 50%, #fdece0 100%);
+    color: var(--brown);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-x: hidden;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 28px;
+    padding: 36px 26px;
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.5s ease;
+    position: relative;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 0 0 12px;
+    color: var(--brown);
+    line-height: 1.4;
+  }
+
+  p {
+    line-height: 1.7;
+    color: var(--brown-soft);
+    margin: 0 0 16px;
+    font-size: 0.98rem;
+  }
+
+  .emoji-hero {
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 16px;
+    background: var(--peach-deep);
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+    box-shadow: 0 4px 14px rgba(255, 140, 90, 0.35);
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(255, 140, 90, 0.45);
+  }
+
+  .btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .btn.secondary {
+    background: var(--sage);
+    box-shadow: 0 4px 14px rgba(139, 168, 118, 0.35);
+  }
+
+  .btn.secondary:hover {
+    box-shadow: 0 8px 20px rgba(139, 168, 118, 0.45);
+  }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--brown-soft);
+    border: 2px solid #eee0d3;
+    box-shadow: none;
+  }
+
+  .btn.ghost:hover {
+    box-shadow: none;
+    border-color: var(--peach-deep);
+    color: var(--peach-deep);
+  }
+
+  .btn-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: #f3e7da;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--peach-deep), var(--pink));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-label {
+    font-size: 0.78rem;
+    color: var(--brown-soft);
+    text-align: right;
+    margin-top: -18px;
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+
+  .option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .option {
+    padding: 14px 16px;
+    border: 2px solid #f0e4d6;
+    border-radius: 14px;
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 0.95rem;
+    color: var(--brown);
+    text-align: left;
+    position: relative;
+  }
+
+  .option:hover {
+    border-color: var(--peach-deep);
+    background: #fff3ea;
+    transform: translateX(2px);
+  }
+
+  .option.selected {
+    border-color: var(--sage-deep);
+    background: #eef4e8;
+    font-weight: 600;
+  }
+
+  .option.wrong-flash {
+    animation: shake 0.4s ease;
+    border-color: #e0a5a0;
+  }
+
+  .option.special {
+    border-color: var(--pink);
+    background: linear-gradient(135deg, #fff0f0, #fff8f0);
+    animation: sparkle 1.2s ease infinite;
+    font-weight: 700;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  @keyframes sparkle {
+    0%, 100% { box-shadow: 0 0 0 rgba(244, 166, 160, 0); }
+    50% { box-shadow: 0 0 18px rgba(244, 166, 160, 0.5); }
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--brown);
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 0.88rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .other-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #f0e4d6;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    margin-top: 4px;
+    font-family: inherit;
+    color: var(--brown);
+    display: none;
+  }
+
+  .other-input.show { display: block; }
+
+  .other-input:focus {
+    outline: none;
+    border-color: var(--peach-deep);
+  }
+
+  .tier-place {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  .tier-place .place-emoji {
+    font-size: 3rem;
+    margin-bottom: 8px;
+  }
+
+  .tier-place .place-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--brown);
+  }
+
+  .tier-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .tier-btn {
+    padding: 16px 8px;
+    border: 2px solid #f0e4d6;
+    border-radius: 14px;
+    background: var(--cream);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s ease;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--brown-soft);
+  }
+
+  .tier-btn .tier-emoji {
+    display: block;
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+  }
+
+  .tier-btn:hover { transform: translateY(-2px); }
+
+  .tier-btn.love { border-color: var(--pink); }
+  .tier-btn.love.selected { background: #fde8e6; border-color: var(--pink); }
+
+  .tier-btn.meh { border-color: var(--sage); }
+  .tier-btn.meh.selected { background: #eef4e8; border-color: var(--sage-deep); }
+
+  .tier-btn.nope { border-color: #d9b8b8; }
+  .tier-btn.nope.selected { background: #f5e6e6; border-color: #c98f8f; }
+
+  .summary-box {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+
+  .summary-box h3 {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: var(--sage-deep);
+  }
+
+  .summary-item {
+    font-size: 0.88rem;
+    color: var(--brown);
+    padding: 4px 0;
+    border-bottom: 1px dashed #eaddd0;
+  }
+
+  .summary-item:last-child { border-bottom: none; }
+
+  .summary-item .tier-tag {
+    float: right;
+    font-weight: 600;
+  }
+
+  .sound-toggle {
+    position: absolute;
+    top: -14px;
+    right: -6px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    border: none;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+    z-index: 10;
+  }
+
+  .sound-toggle:hover { transform: scale(1.08); }
+
+  .float-emoji {
+    position: fixed;
+    font-size: 1.6rem;
+    pointer-events: none;
+    z-index: 200;
+    animation: floatUp 1.6s ease-out forwards;
+  }
+
+  @keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0) scale(0.8) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(-140px) scale(1.3) rotate(20deg); }
+  }
+
+  .confetti-piece {
+    position: fixed;
+    top: -10px;
+    pointer-events: none;
+    z-index: 199;
+    animation: confettiFall linear forwards;
+  }
+
+  @keyframes confettiFall {
+    to { transform: translateY(110vh) rotate(540deg); opacity: 0.3; }
+  }
+
+  .credit-line {
+    font-size: 0.68rem;
+    color: #c9baaa;
+    text-align: center;
+    margin-top: 18px;
+  }
+
+  .heart-divider {
+    text-align: center;
+    color: var(--peach-deep);
+    margin: 18px 0;
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+  }
+
+  .name-tag {
+    color: var(--peach-deep);
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="card">
+    <button class="sound-toggle" id="soundToggle" aria-label="เปิด/ปิดเสียง">🔇</button>
+
+    <!-- SCREEN 1: INTRO -->
+    <div class="screen active" id="screen-intro">
+      <div class="emoji-hero">🌿✨</div>
+      <h1>เฮ้ มุก! สวัสดีนะ</h1>
+      <p>
+        ผม <b>Thitiwut</b> นะครับ — เห็นว่าเราเพิ่งเริ่มรู้จักกันได้ไม่นาน
+        เลยลองทำหน้าเว็บเล็กๆ นี้ขึ้นมา ให้เราได้ทำความรู้จักกันมากขึ้นแบบสนุกๆ
+        ไม่กดดันอะไรทั้งนั้น 😊
+      </p>
+      <p>
+        มีทั้งคำถามแนะนำตัวเบาๆ และเกมเล็กๆ ให้ลองเล่นดู
+        ใช้เวลาไม่นานหรอก ลองดูกันไหม?
+      </p>
+      <div class="btn-row">
+        <button class="btn" onclick="startJourney()">เริ่มเลย 🌸</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: QUIZ -->
+    <div class="screen" id="screen-quiz">
+      <div class="progress-bar"><div class="progress-fill" id="quizProgress"></div></div>
+      <div class="progress-label" id="quizProgressLabel">ข้อ 1 / 4</div>
+      <div id="quizContent"></div>
+    </div>
+
+    <!-- SCREEN 3: TIER LIST -->
+    <div class="screen" id="screen-tier">
+      <div class="progress-bar"><div class="progress-fill" id="tierProgress"></div></div>
+      <div class="progress-label" id="tierProgressLabel">สถานที่ 1 / 9</div>
+      <h1 style="text-align:center; font-size:1.15rem;">ถ้ามีโอกาสได้ไปด้วยกัน...</h1>
+      <p style="text-align:center;">ลองให้คะแนนสถานที่พวกนี้ดูหน่อยว่าชอบแค่ไหน 👇</p>
+      <div class="tier-place">
+        <div class="place-emoji" id="placeEmoji"></div>
+        <div class="place-name" id="placeName"></div>
+      </div>
+      <div class="tier-buttons">
+        <button class="tier-btn love" onclick="selectTier('love')">
+          <span class="tier-emoji">❤️</span>รักมาก
+        </button>
+        <button class="tier-btn meh" onclick="selectTier('meh')">
+          <span class="tier-emoji">🙂</span>เฉยๆ
+        </button>
+        <button class="tier-btn nope" onclick="selectTier('nope')">
+          <span class="tier-emoji">❌</span>ไม่เอา
+        </button>
+      </div>
+      <input type="text" class="other-input show" id="tierNote" placeholder="อยากบอกอะไรเพิ่มไหม (ไม่บังคับ) เช่น ร้านที่อยากไปโดยเฉพาะ...">
+      <div class="btn-row">
+        <button class="btn secondary" onclick="nextTier()" id="tierNextBtn" disabled>ถัดไป →</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: SUMMARY -->
+    <div class="screen" id="screen-summary">
+      <div class="emoji-hero">🎁</div>
+      <h1 style="text-align:center;">เย้ เสร็จแล้ว!</h1>
+      <p style="text-align:center;">นี่คือสิ่งที่ได้รู้จักกันเพิ่มขึ้นวันนี้ ✨</p>
+      <div id="summaryContainer"></div>
+      <div class="heart-divider">• • •</div>
+      <p style="text-align:center; font-size:0.85rem;">
+        📸 อยากให้ลองแคปหน้าจอสรุปนี้ส่งกลับมาด้วยนะ เดี๋ยว
+        <span class="name-tag">Daino</span> จะได้เก็บไว้แพลนเดทให้ในอนาคต 😉
+      </p>
+      <div class="btn-row">
+        <button class="btn" onclick="goToOutro()">ต่อไป →</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 5: OUTRO -->
+    <div class="screen" id="screen-outro">
+      <div class="emoji-hero">💛</div>
+      <h1 style="text-align:center;">ขอบคุณที่เล่นด้วยกันนะ</h1>
+      <p style="text-align:center;">
+        หวังว่าจะได้คุยกันมากขึ้นเรื่อยๆ นะ มุก 🌿<br>
+        ถ้าอยากคุยต่อ ทักมาได้เลยนะ ยินดีมากๆ เลย
+      </p>
+      <div class="btn-row">
+        <a class="btn" href="https://www.instagram.com/dainodainov/" target="_blank" rel="noopener noreferrer">
+          ทักมาทาง IG: @dainodainov 💬
+        </a>
+      </div>
+      <p class="credit-line" id="musicCredit"></p>
+      <p style="text-align:center; font-size:0.8rem; margin-top:10px;">— <span class="name-tag">Daino</span> 🌸</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<audio id="bgMusic" loop preload="none">
+  <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* ---------- State ---------- */
+const state = {
+  quizAnswers: {},
+  tierAnswers: {},
+  tierIndex: 0,
+  pendingTier: null
+};
+
+/* ---------- Quiz data ---------- */
+const RACKET_WRONG_OPTIONS = [
+  { label: 'Wilson Blade 98', reply: 'ใกล้เคียงอยู่นะ...แต่ยังไม่ใช่ตัวที่คิดถึงที่สุด 😏' },
+  { label: 'Wilson Clash 100', reply: 'อืม เกือบละ! แต่ลองอีกทีสิ 🎾' },
+  { label: 'Wilson Ultra Tour', reply: 'ไม้ดีนะ...แต่คำตอบที่แท้จริงมันน่ารักกว่านี้ 😌' },
+  { label: 'Wilson Pro Staff', reply: 'ผิดอีกแล้ว! คำใบ้: ไม่ใช่ไม้เทนนิสหรอก 👀' }
+];
+
+const QUIZ_QUESTIONS = [
+  {
+    id: 'hobby',
+    type: 'racket-trick',
+    question: 'ผมชอบเล่นเทนนิสมากเลย ลงแข่งบ่อยด้วยนะ 🎾<br>ลองทายดูสิว่า "สิ่งที่อยากได้ตัวต่อไป" คือชื่อรุ่นไหน?',
+    summaryLabel: '🎾 สิ่งที่อยากได้ตัวต่อไป (มากกว่าไม้เทนนิสอีก)'
+  },
+  {
+    id: 'food',
+    type: 'choice',
+    question: 'ของหวานกับของคาว เลือกทางไหนดี? 🍮🍜',
+    summaryLabel: '🍮🍜 ของหวาน/ของคาวที่ชอบ',
+    options: ['ของหวานสายชานม/เบเกอรี่', 'ของคาวสายเผ็ดจัดจ้าน', 'ชอบทั้งคู่ กินได้หมด', 'แล้วแต่วันเลย']
+  },
+  {
+    id: 'evening',
+    type: 'choice',
+    question: 'ตอนเย็นหลังเลิกงาน ปกติเป็นคนแบบไหน? 🌆',
+    summaryLabel: '🌆 สไตล์ตอนเย็นหลังเลิกงาน',
+    options: ['อยู่บ้านชิลๆ ดูซีรีส์', 'ออกไปหาของกินอร่อยๆ', 'ไปออกกำลังกาย/เล่นกีฬา', 'นัดเพื่อนสังสรรค์']
+  },
+  {
+    id: 'game',
+    type: 'choice',
+    question: 'เรื่องเกม ผมพอเล่นอยู่บ้าง แล้วปกติชอบเล่นเกมแนวไหนมากกว่ากัน? 🎮',
+    summaryLabel: '🎮 แนวเกมที่ชอบเล่น',
+    options: ['เกมมือถือแนว MOBA (เช่น ROV)', 'เกม RPG/เนื้อเรื่องยาวๆ', 'เกมสบายๆ ฮีลใจ (คาเฟ่/ปลูกผัก)', 'ไม่ค่อยได้เล่นเกมเท่าไหร่']
+  }
+];
+
+let currentQuizIndex = 0;
+
+/* ---------- Tier list data ---------- */
+const TIER_PLACES = [
+  { key: 'cafe', emoji: '☕', name: 'คาเฟ่ / คาเฟ่อินดี้' },
+  { key: 'movie', emoji: '🎬', name: 'ดูหนังโรงภาพยนตร์' },
+  { key: 'night_market', emoji: '🏮', name: 'ตลาดนัด / สตรีทฟู้ดกลางคืน' },
+  { key: 'museum', emoji: '🖼️', name: 'พิพิธภัณฑ์ / แกลเลอรี่เจ๋งๆ' },
+  { key: 'park', emoji: '🌳', name: 'สวนสาธารณะ / เดินเล่น' },
+  { key: 'restaurant', emoji: '🍽️', name: 'ร้านอาหารบรรยากาศดี' },
+  { key: 'boardgame', emoji: '🎲', name: 'Board Game Café / Cat Café' },
+  { key: 'pottery', emoji: '🏺', name: 'Workshop เครื่องปั้นดินเผา / ทำเครื่องประดับเอง' },
+  { key: 'arcade', emoji: '🕹️', name: 'กินจุกเกม / อาร์เกด' }
+];
+
+const TIER_LABELS = { love: '❤️ รักมาก', meh: '🙂 เฉยๆ', nope: '❌ ไม่เอา' };
+
+/* ---------- Navigation ---------- */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startJourney() {
+  currentQuizIndex = 0;
+  tryPlayMusic();
+  showScreen('screen-quiz');
+  renderQuizQuestion();
+}
+
+function goToOutro() {
+  showScreen('screen-outro');
+}
+
+/* ---------- Music ---------- */
+const bgMusic = document.getElementById('bgMusic');
+const soundToggle = document.getElementById('soundToggle');
+let musicEnabled = true;
+
+function tryPlayMusic() {
+  bgMusic.volume = 0.35;
+  const playPromise = bgMusic.play();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      musicEnabled = true;
+      soundToggle.textContent = '🔊';
+    }).catch(() => {
+      musicEnabled = false;
+      soundToggle.textContent = '🔇';
+    });
+  }
+}
+
+soundToggle.addEventListener('click', () => {
+  if (musicEnabled) {
+    bgMusic.pause();
+    musicEnabled = false;
+    soundToggle.textContent = '🔇';
+  } else {
+    bgMusic.play().catch(() => {});
+    musicEnabled = true;
+    soundToggle.textContent = '🔊';
+  }
+});
+
+/* ---------- Toast ---------- */
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+/* ---------- Float emoji + confetti effects ---------- */
+function spawnFloatEmoji(x, y, emoji) {
+  const el = document.createElement('div');
+  el.className = 'float-emoji';
+  el.textContent = emoji;
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1600);
+}
+
+function spawnConfetti() {
+  const colors = ['#ffb08a', '#f4a6a0', '#b8c9a8', '#ffd9c2', '#8ba876'];
+  for (let i = 0; i < 24; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const size = 6 + Math.random() * 6;
+    piece.style.width = size + 'px';
+    piece.style.height = size * 0.6 + 'px';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 3600);
+  }
+}
+
+/* ---------- Quiz rendering ---------- */
+function renderQuizQuestion() {
+  const q = QUIZ_QUESTIONS[currentQuizIndex];
+  const container = document.getElementById('quizContent');
+  document.getElementById('quizProgress').style.width = ((currentQuizIndex) / QUIZ_QUESTIONS.length * 100) + '%';
+  document.getElementById('quizProgressLabel').textContent = `ข้อ ${currentQuizIndex + 1} / ${QUIZ_QUESTIONS.length}`;
+
+  if (q.type === 'racket-trick') {
+    renderRacketTrick(q, container);
+  } else {
+    renderChoiceQuestion(q, container);
+  }
+}
+
+function renderChoiceQuestion(q, container) {
+  const savedAnswer = state.quizAnswers[q.id];
+  let html = `<h1>${q.question}</h1><div class="option-list">`;
+  q.options.forEach((opt, i) => {
+    const isSelected = savedAnswer && savedAnswer.value === opt ? 'selected' : '';
+    html += `<div class="option ${isSelected}" data-idx="${i}" onclick="selectChoiceOption('${q.id}', ${i})">${opt}</div>`;
+  });
+  const otherSelected = savedAnswer && savedAnswer.isOther;
+  html += `<div class="option ${otherSelected ? 'selected' : ''}" data-idx="other" onclick="selectChoiceOption('${q.id}', 'other')">อื่นๆ (พิมพ์เอง)</div>`;
+  html += `</div>`;
+  html += `<input type="text" class="other-input ${otherSelected ? 'show' : ''}" id="otherInput-${q.id}" placeholder="พิมพ์คำตอบของตัวเองได้เลย..." value="${otherSelected ? (savedAnswer.value || '') : ''}">`;
+  html += `<div class="btn-row"><button class="btn secondary" id="quizNextBtn" onclick="nextQuizQuestion('${q.id}')" ${savedAnswer ? '' : 'disabled'}>ถัดไป →</button></div>`;
+  container.innerHTML = html;
+}
+
+function selectChoiceOption(qid, idx) {
+  const q = QUIZ_QUESTIONS.find(x => x.id === qid);
+  const options = document.querySelectorAll(`#quizContent .option`);
+  options.forEach(o => o.classList.remove('selected'));
+
+  if (idx === 'other') {
+    document.querySelector(`#quizContent .option[data-idx="other"]`).classList.add('selected');
+    const input = document.getElementById(`otherInput-${qid}`);
+    input.classList.add('show');
+    input.focus();
+    state.quizAnswers[qid] = { value: input.value, isOther: true };
+  } else {
+    document.querySelector(`#quizContent .option[data-idx="${idx}"]`).classList.add('selected');
+    document.getElementById(`otherInput-${qid}`).classList.remove('show');
+    state.quizAnswers[qid] = { value: q.options[idx], isOther: false };
+    const rect = options[idx].getBoundingClientRect();
+    spawnFloatEmoji(rect.right - 20, rect.top, ['✨','💛','🌸','😊'][Math.floor(Math.random()*4)]);
+  }
+  document.getElementById('quizNextBtn').disabled = false;
+}
+
+document.addEventListener('input', (e) => {
+  if (e.target.id && e.target.id.startsWith('otherInput-')) {
+    const qid = e.target.id.replace('otherInput-', '');
+    state.quizAnswers[qid] = { value: e.target.value, isOther: true };
+    document.getElementById('quizNextBtn').disabled = e.target.value.trim() === '';
+  }
+});
+
+function nextQuizQuestion(qid) {
+  currentQuizIndex++;
+  if (currentQuizIndex >= QUIZ_QUESTIONS.length) {
+    document.getElementById('quizProgress').style.width = '100%';
+    startTierList();
+  } else {
+    renderQuizQuestion();
+  }
+}
+
+/* ---------- Racket trick question ---------- */
+let racketClickedCount = 0;
+let racketClickedIndices = new Set();
+
+function renderRacketTrick(q, container) {
+  racketClickedCount = 0;
+  racketClickedIndices = new Set();
+  let html = `<h1>${q.question}</h1><div class="option-list" id="racketOptions">`;
+  RACKET_WRONG_OPTIONS.forEach((opt, i) => {
+    html += `<div class="option" data-ridx="${i}" onclick="clickRacketOption(${i})">${opt.label}</div>`;
+  });
+  html += `</div>`;
+  html += `<div class="btn-row"><button class="btn secondary" id="quizNextBtn" disabled style="opacity:0.4;">เลือกดูให้ครบทุกตัวก่อนนะ 👀</button></div>`;
+  container.innerHTML = html;
+}
+
+function clickRacketOption(idx) {
+  const el = document.querySelector(`#racketOptions .option[data-ridx="${idx}"]`);
+  el.classList.add('wrong-flash');
+  setTimeout(() => el.classList.remove('wrong-flash'), 400);
+  showToast(RACKET_WRONG_OPTIONS[idx].reply);
+
+  if (!racketClickedIndices.has(idx)) {
+    racketClickedIndices.add(idx);
+    racketClickedCount++;
+  }
+
+  if (racketClickedCount >= RACKET_WRONG_OPTIONS.length && !document.getElementById('specialOption')) {
+    revealSpecialOption();
+  }
+}
+
+function revealSpecialOption() {
+  const container = document.getElementById('racketOptions');
+  const special = document.createElement('div');
+  special.className = 'option special';
+  special.id = 'specialOption';
+  special.innerHTML = `มุก <span style="display:block; font-weight:400; font-size:0.82rem; margin-top:4px; color:var(--brown-soft);">อ๋อ...จริงๆ อยากได้คนนี้มากกว่าไม้เทนนิสอีกนะ 🎾💛</span>`;
+  special.onclick = selectSpecialOption;
+  container.appendChild(special);
+  spawnConfetti();
+  showToast('เอ๊ะ มีตัวเลือกใหม่โผล่มา! 👀');
+}
+
+function selectSpecialOption() {
+  document.getElementById('specialOption').classList.add('selected');
+  state.quizAnswers['hobby'] = { value: 'มุก (คำตอบพิเศษ)', isOther: false };
+  const btn = document.getElementById('quizNextBtn');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.textContent = 'ถัดไป →';
+  btn.onclick = () => nextQuizQuestion('hobby');
+  spawnConfetti();
+}
+
+/* ---------- Tier list ---------- */
+function startTierList() {
+  state.tierIndex = 0;
+  showScreen('screen-tier');
+  renderTierPlace();
+}
+
+function renderTierPlace() {
+  const place = TIER_PLACES[state.tierIndex];
+  document.getElementById('placeEmoji').textContent = place.emoji;
+  document.getElementById('placeName').textContent = place.name;
+  document.getElementById('tierProgress').style.width = (state.tierIndex / TIER_PLACES.length * 100) + '%';
+  document.getElementById('tierProgressLabel').textContent = `สถานที่ ${state.tierIndex + 1} / ${TIER_PLACES.length}`;
+
+  document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
+  const noteInput = document.getElementById('tierNote');
+  noteInput.value = '';
+  document.getElementById('tierNextBtn').disabled = true;
+
+  const saved = state.tierAnswers[place.key];
+  if (saved) {
+    document.querySelector(`.tier-btn.${saved.tier}`).classList.add('selected');
+    noteInput.value = saved.note || '';
+    document.getElementById('tierNextBtn').disabled = false;
+  }
+}
+
+function selectTier(tier) {
+  document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelector(`.tier-btn.${tier}`).classList.add('selected');
+  document.getElementById('tierNextBtn').disabled = false;
+  const place = TIER_PLACES[state.tierIndex];
+  state.tierAnswers[place.key] = { tier, note: document.getElementById('tierNote').value };
+
+  const emojiMap = { love: '❤️', meh: '🙂', nope: '❌' };
+  spawnFloatEmoji(window.innerWidth / 2, window.innerHeight / 2, emojiMap[tier]);
+}
+
+document.getElementById('tierNote').addEventListener('input', (e) => {
+  const place = TIER_PLACES[state.tierIndex];
+  if (state.tierAnswers[place.key]) {
+    state.tierAnswers[place.key].note = e.target.value;
+  }
+});
+
+function nextTier() {
+  state.tierIndex++;
+  if (state.tierIndex >= TIER_PLACES.length) {
+    document.getElementById('tierProgress').style.width = '100%';
+    spawnConfetti();
+    renderSummary();
+    showScreen('screen-summary');
+  } else {
+    renderTierPlace();
+  }
+}
+
+/* ---------- Summary ---------- */
+function renderSummary() {
+  const container = document.getElementById('summaryContainer');
+  let html = '';
+
+  html += `<div class="summary-box"><h3>🌿 เรื่องน่ารักๆ เกี่ยวกับตัวเอง</h3>`;
+  QUIZ_QUESTIONS.forEach(q => {
+    const ans = state.quizAnswers[q.id];
+    if (ans) {
+      html += `<div class="summary-item">${q.summaryLabel}<br><b>${ans.value}</b></div>`;
+    }
+  });
+  html += `</div>`;
+
+  html += `<div class="summary-box"><h3>📍 Tier List สถานที่เดท</h3>`;
+  TIER_PLACES.forEach(place => {
+    const ans = state.tierAnswers[place.key];
+    if (ans) {
+      html += `<div class="summary-item">${place.emoji} ${place.name} <span class="tier-tag">${TIER_LABELS[ans.tier]}</span>`;
+      if (ans.note && ans.note.trim()) {
+        html += `<br><span style="font-size:0.8rem; color:var(--brown-soft);">💬 ${ans.note}</span>`;
+      }
+      html += `</div>`;
+    }
+  });
+  html += `</div>`;
+
+  container.innerHTML = html;
+}
+
+/* ---------- Music credit ---------- */
+document.getElementById('musicCredit').textContent = 'Music: "Carefree" by Kevin MacLeod (incompetech.com) — Licensed under CC BY 4.0';
+</script>
+
+</body>
+</html>
