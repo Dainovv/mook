@@ -248,6 +248,62 @@
 
   .other-input.show { display: block; }
 
+  .q-hint {
+    font-size: 0.82rem;
+    color: var(--sage-deep);
+    margin: -6px 0 10px;
+    font-weight: 600;
+  }
+
+  .option.multi {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .option.multi .check {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    border: 2px solid #ddcbb8;
+    background: var(--white);
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+
+  .option.multi.selected .check {
+    background: var(--sage-deep);
+    border-color: var(--sage-deep);
+  }
+
+  .note-input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 2px dashed #e6d7c6;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--brown);
+    margin: -4px 0 2px 30px;
+    max-width: calc(100% - 30px);
+    display: none;
+    background: #fffdfa;
+  }
+
+  .note-input.show { display: block; }
+
+  .note-input:focus, .other-input:focus {
+    outline: none;
+    border-color: var(--peach-deep);
+    border-style: solid;
+  }
+
   .other-input:focus {
     outline: none;
     border-color: var(--peach-deep);
@@ -283,28 +339,149 @@
     background: var(--cream);
     cursor: pointer;
     text-align: center;
-    transition: all 0.15s ease;
+    transition: all 0.18s ease;
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--brown-soft);
+    position: relative;
   }
 
   .tier-btn .tier-emoji {
     display: block;
     font-size: 1.6rem;
     margin-bottom: 4px;
+    transition: transform 0.18s ease;
   }
 
   .tier-btn:hover { transform: translateY(-2px); }
 
+  /* Unselected buttons fade back once a choice is made, so the
+     picked one clearly stands out. */
+  .tier-buttons.has-choice .tier-btn:not(.selected) {
+    opacity: 0.42;
+    filter: saturate(0.5);
+  }
+
+  .tier-btn.selected {
+    color: var(--white);
+    transform: translateY(-4px) scale(1.06);
+    font-weight: 800;
+  }
+
+  .tier-btn.selected .tier-emoji {
+    transform: scale(1.22);
+  }
+
+  /* Tick badge on the chosen button */
+  .tier-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--brown);
+    font-size: 0.8rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+
   .tier-btn.love { border-color: var(--pink); }
-  .tier-btn.love.selected { background: #fde8e6; border-color: var(--pink); }
+  .tier-btn.love.selected {
+    background: var(--pink);
+    border-color: var(--pink);
+    box-shadow: 0 8px 20px rgba(244,166,160,0.55), 0 0 0 4px rgba(244,166,160,0.22);
+  }
+  .tier-btn.love.selected::after { color: #c9635c; }
 
   .tier-btn.meh { border-color: var(--sage); }
-  .tier-btn.meh.selected { background: #eef4e8; border-color: var(--sage-deep); }
+  .tier-btn.meh.selected {
+    background: var(--sage-deep);
+    border-color: var(--sage-deep);
+    box-shadow: 0 8px 20px rgba(139,168,118,0.55), 0 0 0 4px rgba(139,168,118,0.22);
+  }
+  .tier-btn.meh.selected::after { color: var(--sage-deep); }
 
   .tier-btn.nope { border-color: #d9b8b8; }
-  .tier-btn.nope.selected { background: #f5e6e6; border-color: #c98f8f; }
+  .tier-btn.nope.selected {
+    background: #b5827f;
+    border-color: #b5827f;
+    box-shadow: 0 8px 20px rgba(181,130,127,0.5), 0 0 0 4px rgba(181,130,127,0.2);
+  }
+  .tier-btn.nope.selected::after { color: #b5827f; }
+
+  .copy-box {
+    background: linear-gradient(135deg, #fff5ec, #fdf1f0);
+    border: 2px dashed var(--peach-deep);
+    border-radius: 18px;
+    padding: 18px 16px;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .copy-title {
+    font-weight: 800;
+    color: var(--brown);
+    margin: 0 0 6px;
+    font-size: 1rem;
+  }
+
+  .copy-steps {
+    font-size: 0.88rem;
+    margin: 0 0 14px;
+    line-height: 1.6;
+  }
+
+  .copy-steps-small {
+    font-size: 0.78rem;
+    opacity: 0.8;
+  }
+
+  .copy-btn {
+    font-size: 1.05rem;
+    padding: 16px 20px;
+  }
+
+  .copy-done {
+    display: none;
+    margin: 12px 0 0;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--sage-deep);
+  }
+
+  .copy-done.show { display: block; }
+
+  .copy-fallback {
+    display: none;
+    width: 100%;
+    height: 130px;
+    margin-top: 12px;
+    padding: 12px;
+    border: 2px solid var(--peach-deep);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--brown);
+    background: var(--white);
+    resize: vertical;
+  }
+
+  .copy-fallback.show { display: block; }
+
+  .copy-hint-manual {
+    display: none;
+    font-size: 0.78rem;
+    margin: 8px 0 0;
+    color: var(--brown-soft);
+  }
+
+  .copy-hint-manual.show { display: block; }
 
   .summary-box {
     background: var(--cream);
@@ -379,6 +556,77 @@
     to { transform: translateY(110vh) rotate(540deg); opacity: 0.3; }
   }
 
+  /* --- Playful "no" button --- */
+  .no-btn {
+    transition: all 0.28s cubic-bezier(0.34, 1.3, 0.64, 1);
+  }
+
+  /* Once it starts running away it is positioned against the viewport,
+     clamped in JS so it can never leave the visible screen. */
+  .no-btn.runaway {
+    position: fixed;
+    width: auto;
+    min-width: 64px;
+    z-index: 90;
+    margin: 0;
+  }
+
+  .beg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(92, 74, 61, 0.55);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    padding: 24px;
+    cursor: pointer;
+  }
+
+  .beg-overlay.show { display: flex; }
+
+  .beg-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 30px 24px;
+    max-width: 340px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    animation: begPop 0.32s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+
+  @keyframes begPop {
+    from { opacity: 0; transform: scale(0.82) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .beg-emoji {
+    font-size: 3.2rem;
+    margin-bottom: 10px;
+    animation: begWobble 1.6s ease-in-out infinite;
+  }
+
+  @keyframes begWobble {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(6deg); }
+  }
+
+  .beg-text {
+    font-size: 1.02rem;
+    color: var(--brown);
+    font-weight: 600;
+    line-height: 1.6;
+    margin: 0 0 12px;
+  }
+
+  .beg-close-hint {
+    font-size: 0.74rem;
+    color: var(--brown-soft);
+    opacity: 0.75;
+    margin: 0;
+  }
+
   .credit-line {
     font-size: 0.68rem;
     color: #c9baaa;
@@ -421,7 +669,8 @@
         ไม่นานเลย ลองดูไหม?
       </p>
       <div class="btn-row">
-        <button class="btn" onclick="startJourney()">เริ่มเลย 🌸</button>
+        <button class="btn" id="yesIntro" onclick="startJourney()">เริ่มเลย 🌸</button>
+        <button class="btn ghost no-btn" id="noIntro" onclick="pressNo('intro')">ไม่</button>
       </div>
     </div>
 
@@ -444,7 +693,7 @@
       </div>
       <div class="tier-buttons">
         <button class="tier-btn love" onclick="selectTier('love')">
-          <span class="tier-emoji">❤️</span>รักมาก
+          <span class="tier-emoji">❤️</span>รักเลย
         </button>
         <button class="tier-btn meh" onclick="selectTier('meh')">
           <span class="tier-emoji">🙂</span>เฉยๆ
@@ -466,9 +715,19 @@
       <p style="text-align:center;">สรุปมาให้แล้ว ✨</p>
       <div id="summaryContainer"></div>
       <div class="heart-divider">• • •</div>
-      <p style="text-align:center; font-size:0.85rem;">
-        📸 แคปหน้านี้ส่งมาให้ดูหน่อยได้ไหม เดี๋ยวเก็บไว้ใช้ตอนหาที่เที่ยวให้ 😉
-      </p>
+
+      <div class="copy-box">
+        <p class="copy-title">ส่งคำตอบให้ไดโน่ 💛</p>
+        <p class="copy-steps">
+          กดปุ่มข้างล่างนี้ <b>1 ครั้ง</b> แล้วไปวางในแชท<br>
+          <span class="copy-steps-small">(กดปุ่ม = คัดลอกให้เลย ไม่ต้องพิมพ์เอง)</span>
+        </p>
+        <button class="btn copy-btn" id="copyBtn" onclick="copySummary()">📋 คัดลอกคำตอบ</button>
+        <p class="copy-done" id="copyDone">คัดลอกแล้ว ✓ ไปวางในแชทส่งให้ไดโน่ได้เลย 🌸</p>
+        <textarea class="copy-fallback" id="copyFallback" readonly></textarea>
+        <p class="copy-hint-manual" id="copyManualHint">กดค้างที่ข้อความข้างบน → เลือกทั้งหมด → Copy แล้วไปวางในแชทได้เลยนะ</p>
+      </div>
+
       <div class="btn-row">
         <button class="btn" onclick="goToOutro()">ต่อไป →</button>
       </div>
@@ -483,14 +742,23 @@
         รออยู่ 🌿
       </p>
       <div class="btn-row">
-        <a class="btn" href="https://www.instagram.com/dainodainov/" target="_blank" rel="noopener noreferrer">
+        <a class="btn" id="yesOutro" href="https://www.instagram.com/dainodainov/" target="_blank" rel="noopener noreferrer">
           ทักมาที่ IG @dainodainov 💬
         </a>
+        <button class="btn ghost no-btn" id="noOutro" onclick="pressNo('outro')">ไม่</button>
       </div>
       <p class="credit-line" id="musicCredit"></p>
       <p style="text-align:center; font-size:0.8rem; margin-top:10px;">— <span class="name-tag">Daino</span> 🌸</p>
     </div>
 
+  </div>
+</div>
+
+<div class="beg-overlay" id="begOverlay" onclick="closeBeg()">
+  <div class="beg-card">
+    <div class="beg-emoji" id="begEmoji">🥺</div>
+    <p class="beg-text" id="begText"></p>
+    <p class="beg-close-hint">แตะที่ไหนก็ได้เพื่อปิด</p>
   </div>
 </div>
 
@@ -533,16 +801,21 @@ const QUIZ_QUESTIONS = [
   {
     id: 'evening',
     type: 'choice',
-    question: 'ตอนเย็นๆ พี่มุกทำอะไรอยู่? 🌆',
-    summaryLabel: '🌆 ตอนเย็นทำอะไร',
+    multi: true,
+    question: 'ตอนเย็นๆ พี่มุกชอบทำอะไร? 🌆',
+    hint: 'เลือกได้หลายอันเลยนะ',
+    summaryLabel: '🌆 ตอนเย็นชอบทำอะไร',
     options: ['อยู่บ้าน ดูซีรีส์ชิลๆ', 'ออกไปหาของกิน', 'ออกกำลังกาย', 'นัดเพื่อนออกไปเที่ยว']
   },
   {
     id: 'game',
     type: 'choice',
+    multi: true,
+    perOptionNote: true,
     question: 'ปกติเล่นเกมแนวไหน? 🎮',
+    hint: 'เลือกได้หลายอัน แล้วพิมพ์ชื่อเกมต่อท้ายได้เลย',
     summaryLabel: '🎮 เกมที่เล่น',
-    options: ['เกมมือถือ MOBA (ROV อะไรพวกนี้)', 'เกมเนื้อเรื่องยาวๆ', 'เกมชิลๆ ฮีลใจ', 'ไม่ค่อยได้เล่น']
+    options: ['เกมมือถือ MOBA', 'เกมเนื้อเรื่องยาวๆ', 'เกมชิลๆ ฮีลใจ', 'ไม่ค่อยได้เล่น']
   }
 ];
 
@@ -561,7 +834,7 @@ const TIER_PLACES = [
   { key: 'arcade', emoji: '🕹️', name: 'ตู้เกม / เกมกด' }
 ];
 
-const TIER_LABELS = { love: '❤️ รักมาก', meh: '🙂 เฉยๆ', nope: '❌ ไม่เอา' };
+const TIER_LABELS = { love: '❤️ รักเลย', meh: '🙂 เฉยๆ', nope: '❌ ไม่เอา' };
 
 /* ---------- Navigation ---------- */
 function showScreen(id) {
@@ -663,7 +936,21 @@ function renderQuizQuestion() {
   }
 }
 
+/* Multi-select answers are stored as:
+   { picks: [{label, note}], otherText: '' }
+   Single-select keeps the simpler { value, isOther } shape. */
+function getMultiAnswer(qid) {
+  if (!state.quizAnswers[qid] || !state.quizAnswers[qid].picks) {
+    state.quizAnswers[qid] = { picks: [], otherText: '' };
+  }
+  return state.quizAnswers[qid];
+}
+
 function renderChoiceQuestion(q, container) {
+  return q.multi ? renderMultiQuestion(q, container) : renderSingleQuestion(q, container);
+}
+
+function renderSingleQuestion(q, container) {
   const savedAnswer = state.quizAnswers[q.id];
   let html = `<h1>${q.question}</h1><div class="option-list">`;
   q.options.forEach((opt, i) => {
@@ -676,6 +963,114 @@ function renderChoiceQuestion(q, container) {
   html += `<input type="text" class="other-input ${otherSelected ? 'show' : ''}" id="otherInput-${q.id}" placeholder="พิมพ์เองเลย..." value="${otherSelected ? (savedAnswer.value || '') : ''}">`;
   html += `<div class="btn-row"><button class="btn secondary" id="quizNextBtn" onclick="nextQuizQuestion('${q.id}')" ${savedAnswer ? '' : 'disabled'}>ถัดไป →</button></div>`;
   container.innerHTML = html;
+}
+
+function renderMultiQuestion(q, container) {
+  const ans = getMultiAnswer(q.id);
+  let html = `<h1>${q.question}</h1>`;
+  if (q.hint) html += `<p class="q-hint">${q.hint}</p>`;
+  html += `<div class="option-list">`;
+  q.options.forEach((opt, i) => {
+    const pick = ans.picks.find(p => p.label === opt);
+    html += `<div class="option multi ${pick ? 'selected' : ''}" data-idx="${i}" onclick="toggleMultiOption('${q.id}', ${i})">
+      <span class="check">${pick ? '✓' : ''}</span>${opt}
+    </div>`;
+    if (q.perOptionNote) {
+      html += `<input type="text" class="note-input ${pick ? 'show' : ''}" data-note-for="${i}"
+        placeholder="ชื่อเกมที่เล่น (ไม่ใส่ก็ได้)" value="${pick && pick.note ? escapeAttr(pick.note) : ''}"
+        oninput="setOptionNote('${q.id}', ${i}, this.value)">`;
+    }
+  });
+  const otherOn = !!(ans.otherText && ans.otherText.length) || ans.otherOpen;
+  html += `<div class="option multi ${otherOn ? 'selected' : ''}" data-idx="other" onclick="toggleMultiOther('${q.id}')">
+    <span class="check">${otherOn ? '✓' : ''}</span>อย่างอื่น (พิมพ์เองได้)
+  </div>`;
+  html += `</div>`;
+  html += `<input type="text" class="other-input ${otherOn ? 'show' : ''}" id="otherInput-${q.id}"
+    placeholder="พิมพ์เองเลย..." value="${escapeAttr(ans.otherText || '')}"
+    oninput="setMultiOtherText('${q.id}', this.value)">`;
+  html += `<div class="btn-row"><button class="btn secondary" id="quizNextBtn" onclick="nextQuizQuestion('${q.id}')" ${multiHasAnswer(q.id) ? '' : 'disabled'}>ถัดไป →</button></div>`;
+  container.innerHTML = html;
+}
+
+function escapeAttr(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+function multiHasAnswer(qid) {
+  const ans = getMultiAnswer(qid);
+  return ans.picks.length > 0 || (ans.otherText || '').trim() !== '';
+}
+
+function refreshMultiNextBtn(qid) {
+  const btn = document.getElementById('quizNextBtn');
+  if (btn) btn.disabled = !multiHasAnswer(qid);
+}
+
+function toggleMultiOption(qid, idx) {
+  const q = QUIZ_QUESTIONS.find(x => x.id === qid);
+  const ans = getMultiAnswer(qid);
+  const label = q.options[idx];
+  const el = document.querySelector(`#quizContent .option[data-idx="${idx}"]`);
+  const existing = ans.picks.findIndex(p => p.label === label);
+
+  if (existing >= 0) {
+    ans.picks.splice(existing, 1);
+    el.classList.remove('selected');
+    el.querySelector('.check').textContent = '';
+  } else {
+    ans.picks.push({ label, note: '' });
+    el.classList.add('selected');
+    el.querySelector('.check').textContent = '✓';
+    const rect = el.getBoundingClientRect();
+    spawnFloatEmoji(rect.right - 20, rect.top, ['✨','💛','🌸','😊'][Math.floor(Math.random()*4)]);
+  }
+
+  const note = document.querySelector(`#quizContent .note-input[data-note-for="${idx}"]`);
+  if (note) note.classList.toggle('show', existing < 0);
+  refreshMultiNextBtn(qid);
+}
+
+function setOptionNote(qid, idx, value) {
+  const q = QUIZ_QUESTIONS.find(x => x.id === qid);
+  const ans = getMultiAnswer(qid);
+  const pick = ans.picks.find(p => p.label === q.options[idx]);
+  if (pick) pick.note = value;
+}
+
+function toggleMultiOther(qid) {
+  const ans = getMultiAnswer(qid);
+  const el = document.querySelector(`#quizContent .option[data-idx="other"]`);
+  const input = document.getElementById(`otherInput-${qid}`);
+  ans.otherOpen = !(ans.otherOpen || (ans.otherText || '') !== '');
+
+  if (ans.otherOpen) {
+    el.classList.add('selected');
+    el.querySelector('.check').textContent = '✓';
+    input.classList.add('show');
+    input.focus();
+  } else {
+    ans.otherText = '';
+    input.value = '';
+    el.classList.remove('selected');
+    el.querySelector('.check').textContent = '';
+    input.classList.remove('show');
+  }
+  refreshMultiNextBtn(qid);
+}
+
+function setMultiOtherText(qid, value) {
+  getMultiAnswer(qid).otherText = value;
+  refreshMultiNextBtn(qid);
+}
+
+/* Renders a multi answer as "a (note), b, c" */
+function formatMultiAnswer(qid) {
+  const ans = state.quizAnswers[qid];
+  if (!ans || !ans.picks) return '';
+  const parts = ans.picks.map(p => p.note && p.note.trim() ? `${p.label} (${p.note.trim()})` : p.label);
+  if ((ans.otherText || '').trim()) parts.push(ans.otherText.trim());
+  return parts.join(', ');
 }
 
 function selectChoiceOption(qid, idx) {
@@ -702,6 +1097,8 @@ function selectChoiceOption(qid, idx) {
 document.addEventListener('input', (e) => {
   if (e.target.id && e.target.id.startsWith('otherInput-')) {
     const qid = e.target.id.replace('otherInput-', '');
+    const q = QUIZ_QUESTIONS.find(x => x.id === qid);
+    if (q && q.multi) return; // multi handles its own input via oninput
     state.quizAnswers[qid] = { value: e.target.value, isOther: true };
     document.getElementById('quizNextBtn').disabled = e.target.value.trim() === '';
   }
@@ -787,6 +1184,7 @@ function renderTierPlace() {
   document.getElementById('tierProgressLabel').textContent = `สถานที่ ${state.tierIndex + 1} / ${TIER_PLACES.length}`;
 
   document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelector('.tier-buttons').classList.remove('has-choice');
   const noteInput = document.getElementById('tierNote');
   noteInput.value = '';
   document.getElementById('tierNextBtn').disabled = true;
@@ -794,6 +1192,7 @@ function renderTierPlace() {
   const saved = state.tierAnswers[place.key];
   if (saved) {
     document.querySelector(`.tier-btn.${saved.tier}`).classList.add('selected');
+    document.querySelector('.tier-buttons').classList.add('has-choice');
     noteInput.value = saved.note || '';
     document.getElementById('tierNextBtn').disabled = false;
   }
@@ -802,6 +1201,7 @@ function renderTierPlace() {
 function selectTier(tier) {
   document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
   document.querySelector(`.tier-btn.${tier}`).classList.add('selected');
+  document.querySelector('.tier-buttons').classList.add('has-choice');
   document.getElementById('tierNextBtn').disabled = false;
   const place = TIER_PLACES[state.tierIndex];
   state.tierAnswers[place.key] = { tier, note: document.getElementById('tierNote').value };
@@ -837,9 +1237,9 @@ function renderSummary() {
   html += `<div class="summary-box"><h3>🌿 ที่พี่มุกตอบมา</h3>`;
   QUIZ_QUESTIONS.forEach(q => {
     const ans = state.quizAnswers[q.id];
-    if (ans) {
-      html += `<div class="summary-item">${q.summaryLabel}<br><b>${ans.value}</b></div>`;
-    }
+    if (!ans) return;
+    const text = q.multi ? formatMultiAnswer(q.id) : ans.value;
+    if (text) html += `<div class="summary-item">${q.summaryLabel}<br><b>${text}</b></div>`;
   });
   html += `</div>`;
 
@@ -857,6 +1257,164 @@ function renderSummary() {
   html += `</div>`;
 
   container.innerHTML = html;
+
+  // Reset the copy widget for a fresh run
+  document.getElementById('copyDone').classList.remove('show');
+  document.getElementById('copyFallback').classList.remove('show');
+  document.getElementById('copyManualHint').classList.remove('show');
+  document.getElementById('copyBtn').textContent = '📋 คัดลอกคำตอบ';
+}
+
+/* ---------- Playful "no" button ---------- */
+const noState = { intro: 0, outro: 0 };
+
+/* Fixed slots (not random) as [x%, y%] of the viewport. From the 3rd
+   press the button hops through these; clampToScreen keeps it fully
+   on screen whatever the device size. */
+const NO_SLOTS = [
+  [0.06, 0.08], [0.78, 0.08], [0.06, 0.86],
+  [0.78, 0.86], [0.42, 0.05], [0.42, 0.9],
+  [0.04, 0.48], [0.82, 0.48]
+];
+
+const BEG_LINES = [
+  'จะไม่คุยกันแล้วจริงๆ เหรอ 🥺',
+  'ไม่อยากรู้จักกันอีกแล้วเหรอ... 😢',
+  'ขอโอกาสอีกนิดนะ นะ นะ 🙏',
+  'อย่าเลย เดี๋ยวเหงา 🥹',
+  'กดผิดใช่ไหม บอกมาตรงๆ ได้นะ 👀'
+];
+
+const NO_TAUNTS = [
+  'เอ๊ะ ยังจะกดอีก 👀',
+  'กดไปก็เท่านั้นนะ 😌',
+  'ปุ่มนี้เริ่มเหนื่อยแล้ว 😮‍💨',
+  'ลองกดอีกอันสิ น่า~ 🌸'
+];
+
+function clampToScreen(el, x, y) {
+  const r = el.getBoundingClientRect();
+  const pad = 8;
+  const maxX = window.innerWidth - r.width - pad;
+  const maxY = window.innerHeight - r.height - pad;
+  return [
+    Math.max(pad, Math.min(x, maxX)),
+    Math.max(pad, Math.min(y, maxY))
+  ];
+}
+
+function pressNo(which) {
+  const n = ++noState[which];
+  const noBtn = document.getElementById(which === 'intro' ? 'noIntro' : 'noOutro');
+  const yesBtn = document.getElementById(which === 'intro' ? 'yesIntro' : 'yesOutro');
+
+  // "ไม่" shrinks, the good button grows
+  const noScale = Math.max(0.42, 1 - n * 0.11);
+  noBtn.style.fontSize = (1 * noScale).toFixed(2) + 'rem';
+  noBtn.style.padding = `${Math.max(6, 15 * noScale)}px ${Math.max(10, 20 * noScale)}px`;
+  noBtn.style.opacity = Math.max(0.45, 1 - n * 0.06);
+
+  const yesScale = 1 + n * 0.06;
+  yesBtn.style.fontSize = (1 * yesScale).toFixed(2) + 'rem';
+  yesBtn.style.padding = `${15 * yesScale}px ${20 * yesScale}px`;
+  yesBtn.style.fontWeight = '800';
+
+  // From the 3rd press it starts hopping to awkward spots
+  if (n >= 3) {
+    noBtn.classList.add('runaway');
+    const slot = NO_SLOTS[(n - 3) % NO_SLOTS.length];
+    const [x, y] = clampToScreen(noBtn, slot[0] * window.innerWidth, slot[1] * window.innerHeight);
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+  }
+
+  // 5th press onwards: the pleading overlay
+  if (n >= 5 && n < 10) {
+    showBeg(BEG_LINES[(n - 5) % BEG_LINES.length]);
+  } else if (n < 5) {
+    showToast(NO_TAUNTS[(n - 1) % NO_TAUNTS.length]);
+  }
+
+  // 10th press: the button gives up and leaves
+  if (n >= 10) {
+    closeBeg();
+    noBtn.style.transition = 'all 0.4s ease';
+    noBtn.style.opacity = '0';
+    noBtn.style.transform = 'scale(0.3) rotate(20deg)';
+    setTimeout(() => noBtn.remove(), 420);
+    showToast('กดเพลินเลยนะ จริงๆ อยากไปต่อใช่ไหมล่ะ กดไปต่อได้แล้ว อย่าลีลา 5555 😆');
+    spawnConfetti();
+  }
+}
+
+function showBeg(text) {
+  document.getElementById('begText').textContent = text;
+  document.getElementById('begOverlay').classList.add('show');
+}
+
+function closeBeg() {
+  document.getElementById('begOverlay').classList.remove('show');
+}
+
+/* Keep a runaway button on screen if the device is rotated / resized */
+window.addEventListener('resize', () => {
+  ['noIntro', 'noOutro'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el || !el.classList.contains('runaway')) return;
+    const [x, y] = clampToScreen(el, parseFloat(el.style.left) || 0, parseFloat(el.style.top) || 0);
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+  });
+});
+
+/* ---------- Copy summary ---------- */
+function buildSummaryText() {
+  const lines = ['คำตอบของพี่มุก 🌿', ''];
+
+  QUIZ_QUESTIONS.forEach(q => {
+    const ans = state.quizAnswers[q.id];
+    if (!ans) return;
+    const text = q.multi ? formatMultiAnswer(q.id) : ans.value;
+    if (text) lines.push(`${q.summaryLabel}: ${text}`);
+  });
+
+  lines.push('', '📍 ที่เที่ยว');
+  const order = { love: 0, meh: 1, nope: 2 };
+  TIER_PLACES
+    .filter(p => state.tierAnswers[p.key])
+    .sort((a, b) => order[state.tierAnswers[a.key].tier] - order[state.tierAnswers[b.key].tier])
+    .forEach(p => {
+      const a = state.tierAnswers[p.key];
+      const note = a.note && a.note.trim() ? ` — ${a.note.trim()}` : '';
+      lines.push(`${TIER_LABELS[a.tier]} ${p.name}${note}`);
+    });
+
+  return lines.join('\n');
+}
+
+async function copySummary() {
+  const text = buildSummaryText();
+  const done = document.getElementById('copyDone');
+  const fallback = document.getElementById('copyFallback');
+  const manualHint = document.getElementById('copyManualHint');
+
+  try {
+    if (!navigator.clipboard) throw new Error('no clipboard api');
+    await navigator.clipboard.writeText(text);
+    done.classList.add('show');
+    fallback.classList.remove('show');
+    manualHint.classList.remove('show');
+    document.getElementById('copyBtn').textContent = '📋 คัดลอกอีกครั้ง';
+    spawnConfetti();
+  } catch (e) {
+    // Some in-app browsers block the clipboard API — show the text
+    // so it can be selected and copied by hand instead.
+    fallback.value = text;
+    fallback.classList.add('show');
+    manualHint.classList.add('show');
+    done.classList.remove('show');
+    try { fallback.focus(); fallback.select(); } catch (_) {}
+  }
 }
 
 /* ---------- Music credit ---------- */
