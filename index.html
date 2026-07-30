@@ -483,6 +483,78 @@
 
   .copy-hint-manual.show { display: block; }
 
+  /* --- Passcode gate --- */
+  .lock {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    background: linear-gradient(160deg, var(--cream) 0%, #fff0e3 50%, #fdece0 100%);
+    z-index: 500;
+  }
+
+  .lock.unlocked { display: none; }
+
+  .lock-card {
+    background: var(--white);
+    border-radius: 28px;
+    padding: 36px 26px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 340px;
+    text-align: center;
+    animation: fadeUp 0.5s ease;
+  }
+
+  .lock-emoji {
+    font-size: 2.6rem;
+    margin-bottom: 10px;
+  }
+
+  .lock-title {
+    font-size: 1.2rem;
+    margin: 0 0 6px;
+  }
+
+  .lock-hint {
+    font-size: 0.86rem;
+    margin: 0 0 18px;
+  }
+
+  .lock-input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #f0e4d6;
+    border-radius: 14px;
+    font-size: 1.5rem;
+    font-family: inherit;
+    text-align: center;
+    letter-spacing: 6px;
+    color: var(--brown);
+    background: var(--cream);
+    margin-bottom: 14px;
+  }
+
+  .lock-input:focus {
+    outline: none;
+    border-color: var(--peach-deep);
+    background: var(--white);
+  }
+
+  .lock-input.shake { animation: shake 0.4s ease; border-color: #e0a5a0; }
+
+  .lock-error {
+    display: none;
+    font-size: 0.84rem;
+    color: #c9635c;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .lock-error.show { display: block; }
+
   /* --- Calendar slides --- */
   .cal-strip {
     display: flex;
@@ -810,7 +882,30 @@
 </head>
 <body>
 
-<div class="app">
+<!-- Passcode gate. This is only a speed bump so a stranger who stumbles
+     on the GitHub repo or the URL cannot just read the page — the code
+     is in this file in plain text, so anyone who views source can find
+     it. Do not put anything genuinely sensitive behind it. -->
+<div class="lock" id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-emoji">🔒</div>
+    <h1 class="lock-title">ใส่รหัสก่อนนะครับ</h1>
+    <p class="lock-hint">พี่มุกรู้รหัสอยู่แล้ว 😉</p>
+    <input
+      type="text"
+      inputmode="numeric"
+      autocomplete="off"
+      maxlength="6"
+      class="lock-input"
+      id="lockInput"
+      placeholder="• • • • • •"
+      aria-label="รหัสผ่าน">
+    <p class="lock-error" id="lockError">ไม่ใช่รหัสนี้น้าา ลองอีกที 👀</p>
+    <button class="btn" onclick="tryUnlock()">เข้าไปดู 🌸</button>
+  </div>
+</div>
+
+<div class="app" id="appRoot" hidden>
   <div class="card">
     <button class="sound-toggle" id="soundToggle" aria-label="เปิด/ปิดเสียง">🔇</button>
 
@@ -989,6 +1084,48 @@
 </audio>
 
 <script>
+/* ---------- Passcode gate ----------
+   Client-side only, so the code below is visible to anyone who reads
+   this file. It exists to keep casual visitors out, nothing more. */
+const PASSCODE = '270769';
+
+function tryUnlock() {
+  const input = document.getElementById('lockInput');
+  const error = document.getElementById('lockError');
+
+  if (input.value.trim() === PASSCODE) {
+    document.getElementById('lockScreen').classList.add('unlocked');
+    document.getElementById('appRoot').hidden = false;
+    try { sessionStorage.setItem('mookUnlocked', '1'); } catch (e) {}
+    return;
+  }
+
+  error.classList.add('show');
+  input.classList.remove('shake');
+  void input.offsetWidth; // restart the shake animation
+  input.classList.add('shake');
+  input.select();
+}
+
+/* Stay unlocked while the tab is open, so a refresh mid-quiz does not
+   ask again. Cleared when the tab closes. */
+(() => {
+  let already = false;
+  try { already = sessionStorage.getItem('mookUnlocked') === '1'; } catch (e) {}
+  if (already) {
+    document.getElementById('lockScreen').classList.add('unlocked');
+    document.getElementById('appRoot').hidden = false;
+  }
+})();
+
+document.getElementById('lockInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') tryUnlock();
+});
+
+document.getElementById('lockInput').addEventListener('input', () => {
+  document.getElementById('lockError').classList.remove('show');
+});
+
 /* ---------- State ---------- */
 const state = {
   quizAnswers: {},
