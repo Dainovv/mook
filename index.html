@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>เฮ้ พี่มุก 🌿</title>
+<title>พี่มุกน่าร้ากก 🌿</title>
 <style>
   :root {
     --cream: #fdf6ee;
@@ -483,6 +483,118 @@
 
   .copy-hint-manual.show { display: block; }
 
+  /* --- Calendar slides --- */
+  .cal-strip {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 14px 0 16px;
+  }
+
+  .cal-pip {
+    font-size: 0.66rem;
+    padding: 4px 7px;
+    border-radius: 8px;
+    background: var(--cream);
+    color: var(--brown-soft);
+    border: 1px solid #f0e4d6;
+    transition: all 0.2s ease;
+  }
+
+  .cal-pip.past {
+    background: #eef4e8;
+    border-color: var(--sage);
+    opacity: 0.75;
+  }
+
+  .cal-pip.active {
+    background: var(--peach-deep);
+    border-color: var(--peach-deep);
+    color: var(--white);
+    font-weight: 800;
+    transform: scale(1.12);
+  }
+
+  .cal-card {
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 20px 18px;
+    text-align: center;
+    border: 2px solid #f0e4d6;
+  }
+
+  .cal-card.pop { animation: begPop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1); }
+
+  .cal-card.is-future {
+    background: linear-gradient(135deg, #eef4e8, #f6fbf2);
+    border-color: var(--sage);
+  }
+
+  .cal-card.is-closing {
+    background: linear-gradient(135deg, #fff5ec, #fdf1f0);
+    border-color: var(--peach-deep);
+    border-style: dashed;
+  }
+
+  .cal-card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .cal-date {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--brown);
+  }
+
+  .cal-day {
+    font-size: 0.78rem;
+    color: var(--brown-soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cal-emoji {
+    font-size: 2.4rem;
+    margin: 6px 0 10px;
+  }
+
+  .cal-text {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin: 0;
+    color: var(--brown);
+  }
+
+  .cal-extra {
+    display: none;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed #ddcbb8;
+  }
+
+  .cal-extra.show { display: block; }
+
+  .cal-ask {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: var(--brown);
+  }
+
+  .cal-confirm-btn { font-size: 0.95rem; }
+
+  .cal-confirmed {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--sage-deep);
+  }
+
   /* Little "note from Daino" panels on the intro / outro */
   .note-card {
     background: var(--cream);
@@ -704,8 +816,8 @@
 
     <!-- SCREEN 1: INTRO -->
     <div class="screen active" id="screen-intro">
-      <div class="emoji-hero">🌿✨</div>
-      <h1>เฮ้ พี่มุก 👋</h1>
+      <div class="emoji-hero">👋🌿</div>
+      <h1>พี่มุกน่าร้ากก 🌿</h1>
       <p>
         ผม <b>Thitiwut</b> นะครับ เรียก <b>Daino</b> ก็ได้ 😊
       </p>
@@ -771,6 +883,33 @@
       <input type="text" class="other-input show" id="tierNote" placeholder="มีร้านในใจอยู่แล้วก็พิมพ์บอกผมได้น้าา">
       <div class="btn-row">
         <button class="btn secondary" onclick="nextTier()" id="tierNextBtn" disabled>ถัดไป →</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 3.5: CALENDAR -->
+    <div class="screen" id="screen-cal">
+      <div class="progress-bar"><div class="progress-fill" id="calProgress"></div></div>
+      <div class="progress-label" id="calProgressLabel"></div>
+
+      <h1 style="text-align:center; font-size:1.12rem;">2 อาทิตย์ที่ผ่านมาของผม 🗓️</h1>
+      <p style="text-align:center; font-size:0.88rem;">
+        ผมจดไว้ให้ดูว่าผมยุ่งแค่ไหน กดดูไปเรื่อยๆ ได้เลยน้าา
+      </p>
+
+      <div class="cal-strip" id="calStrip"></div>
+
+      <div class="cal-card" id="calCard">
+        <div class="cal-card-head">
+          <span class="cal-date" id="calDate"></span>
+          <span class="cal-day" id="calDay"></span>
+        </div>
+        <div class="cal-emoji" id="calEmoji"></div>
+        <p class="cal-text" id="calText"></p>
+        <div class="cal-extra" id="calExtra"></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" id="calNextBtn" onclick="nextCalDay()">ถัดไป →</button>
       </div>
     </div>
 
@@ -855,7 +994,8 @@ const state = {
   quizAnswers: {},
   tierAnswers: {},
   tierIndex: 0,
-  pendingTier: null
+  pendingTier: null,
+  calConfirms: {}
 };
 
 /* ---------- Quiz data ---------- */
@@ -902,6 +1042,64 @@ const QUIZ_QUESTIONS = [
 ];
 
 let currentQuizIndex = 0;
+
+/* ---------- Calendar (past 2 weeks + a soft look ahead) ---------- */
+const CAL_DAYS = [
+  {
+    date: '25/7', day: 'Sat', emoji: '🏃',
+    text: 'อยู่เหงาๆ เลยไปวิ่งคนเดียว'
+  },
+  {
+    date: '26/7', day: 'Sun', emoji: '🎾',
+    text: 'ไปตีเทนนิสกับเพื่อน 1 ชม. แล้วตีคนเดียวซ้อมเสิร์ฟอีก 1 ชม. เพราะสนามว่าง ผมก็ว่าง 5555'
+  },
+  {
+    date: '27/7', day: 'Mon', emoji: '😵‍💫',
+    text: 'ทำงานเครียด ติดตั้งระบบไม่ได้เลย เลิกงานไปกินบุฟเฟ่ต์ให้หายหิว แล้วก็มีคนน่ารักทักมาพอดี ><'
+  },
+  {
+    date: '28/7', day: 'Tue', emoji: '🥺',
+    text: 'วันหยุดผมที่ดันยุ่งแทบทั้งวัน เลยไม่ได้อยู่คุยกับพี่มุกที่นอนปวดหัวปวดตัวอยู่คนเดียว'
+  },
+  {
+    date: '29/7', day: 'Wed', emoji: '🌙',
+    text: 'วันหยุดผมคนเดียว ยุ่งประมาณเดิม แต่พี่มุกไปทำงานทั้งวัน ผมคิดถึงรอคุยตอนค่ำ 20:00-22:00 ผมไปตีเทนนิส คุยกันแป๊บนึงพี่มุกก็ไปเล่นเกมกับเพื่อน กว่าจะได้คุยอีกทีเที่ยงคืนกว่า นอนดึกมากกันทั้งคู่'
+  },
+  {
+    date: '30/7', day: 'Thu', emoji: '🕷️',
+    text: 'ไปทำงานกันทั้งคู่ เลิกงานผมดันไม่ว่างเพราะไปดูหนังต่อทันที ถึงดึกๆ เลยอีก'
+  },
+  {
+    date: '31/7', day: 'Fri', emoji: '💼',
+    text: 'ทำงานทั้งคู่ ยังไม่มีอะไรอัปเดท เป็นอนาคต'
+  },
+  {
+    date: '1/8', day: 'Sat', emoji: '✨',
+    text: 'พี่มุกทำงานเช้า ผมขนของและทำธุระกับนิติ ตอนเย็น<b>มีนัดไปเจอกันครั้งแรกที่สยาม</b>',
+    confirm: {
+      question: 'วันนี้แหละ 👀',
+      yes: 'คอนเฟิร์มนัด ✅',
+      done: 'เย้ ผมรอวันนี้อยู่นะครับ 🥰'
+    }
+  },
+  {
+    date: 'ต่อจากนี้', day: 'Next', emoji: '🌱',
+    text: 'ได้คุยกันมากขึ้น ได้รู้จักกันมากขึ้น แล้วก็ได้ไปเจอกันอีกในวันต่างๆ',
+    future: true,
+    confirm: {
+      question: 'ขอให้ทุกวันมีความสุขกันนะครับ',
+      yes: 'มีความสุขกัน 🌿',
+      done: 'ขอบคุณครับ 💛'
+    }
+  },
+  {
+    date: 'To be continued', day: '', emoji: '🌸',
+    text: 'ที่เหลือเดี๋ยวเจอกันวันเสาร์แล้วผมมาถามอีกทีนะครับ ><',
+    closing: true
+  }
+];
+
+let calIndex = 0;
 
 /* ---------- Tier list data ---------- */
 const TIER_PLACES = [
@@ -1304,11 +1502,83 @@ function nextTier() {
   if (state.tierIndex >= TIER_PLACES.length) {
     document.getElementById('tierProgress').style.width = '100%';
     spawnConfetti();
-    renderSummary();
-    showScreen('screen-summary');
+    startCalendar();
   } else {
     renderTierPlace();
   }
+}
+
+/* ---------- Calendar ---------- */
+function startCalendar() {
+  calIndex = 0;
+  showScreen('screen-cal');
+  renderCalStrip();
+  renderCalDay();
+}
+
+/* Little row of dots/dates so she can see how far along she is */
+function renderCalStrip() {
+  const strip = document.getElementById('calStrip');
+  strip.innerHTML = CAL_DAYS
+    .map((d, i) => `<span class="cal-pip" data-i="${i}">${d.closing ? '🌸' : (d.future ? '🌱' : d.date)}</span>`)
+    .join('');
+}
+
+function renderCalDay() {
+  const d = CAL_DAYS[calIndex];
+
+  document.getElementById('calProgress').style.width = ((calIndex + 1) / CAL_DAYS.length * 100) + '%';
+  document.getElementById('calProgressLabel').textContent = `${calIndex + 1} / ${CAL_DAYS.length}`;
+  document.getElementById('calDate').textContent = d.date;
+  document.getElementById('calDay').textContent = d.day || '';
+  document.getElementById('calEmoji').textContent = d.emoji;
+  document.getElementById('calText').innerHTML = d.text;
+
+  const card = document.getElementById('calCard');
+  card.classList.toggle('is-future', !!d.future);
+  card.classList.toggle('is-closing', !!d.closing);
+  card.classList.remove('pop');
+  void card.offsetWidth; // restart the entry animation
+  card.classList.add('pop');
+
+  document.querySelectorAll('.cal-pip').forEach((p, i) => {
+    p.classList.toggle('active', i === calIndex);
+    p.classList.toggle('past', i < calIndex);
+  });
+
+  // Optional confirm button on the special days
+  const extra = document.getElementById('calExtra');
+  const saved = state.calConfirms[d.date];
+  if (d.confirm) {
+    extra.innerHTML = saved
+      ? `<p class="cal-confirmed">${d.confirm.done}</p>`
+      : `<p class="cal-ask">${d.confirm.question}</p>
+         <button class="btn cal-confirm-btn" onclick="confirmCalDay()">${d.confirm.yes}</button>`;
+    extra.classList.add('show');
+  } else {
+    extra.innerHTML = '';
+    extra.classList.remove('show');
+  }
+
+  const btn = document.getElementById('calNextBtn');
+  btn.textContent = calIndex === CAL_DAYS.length - 1 ? 'ไปดูสรุปคำตอบ →' : 'ถัดไป →';
+}
+
+function confirmCalDay() {
+  const d = CAL_DAYS[calIndex];
+  state.calConfirms[d.date] = true;
+  spawnConfetti();
+  renderCalDay();
+}
+
+function nextCalDay() {
+  if (calIndex >= CAL_DAYS.length - 1) {
+    renderSummary();
+    showScreen('screen-summary');
+    return;
+  }
+  calIndex++;
+  renderCalDay();
 }
 
 /* ---------- Summary ---------- */
