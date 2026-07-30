@@ -607,9 +607,20 @@
     animation: begWobble 1.6s ease-in-out infinite;
   }
 
+  /* The final taunt gets a much bigger, cheekier face */
+  .beg-emoji.big {
+    font-size: 5.4rem;
+    animation: begTease 0.9s ease-in-out infinite;
+  }
+
   @keyframes begWobble {
     0%, 100% { transform: rotate(-6deg); }
     50% { transform: rotate(6deg); }
+  }
+
+  @keyframes begTease {
+    0%, 100% { transform: rotate(-9deg) scale(1); }
+    50% { transform: rotate(9deg) scale(1.12); }
   }
 
   .beg-text {
@@ -618,6 +629,11 @@
     font-weight: 600;
     line-height: 1.6;
     margin: 0 0 12px;
+  }
+
+  .beg-text.big {
+    font-size: 1.2rem;
+    font-weight: 800;
   }
 
   .beg-close-hint {
@@ -758,7 +774,7 @@
   <div class="beg-card">
     <div class="beg-emoji" id="begEmoji">🥺</div>
     <p class="beg-text" id="begText"></p>
-    <p class="beg-close-hint">แตะที่ไหนก็ได้เพื่อปิด</p>
+    <p class="beg-close-hint" id="begCloseHint">แตะที่ไหนก็ได้เพื่อปิด</p>
   </div>
 </div>
 
@@ -1337,22 +1353,42 @@ function pressNo(which) {
 
   // 10th press: the button gives up and leaves
   if (n >= 10) {
-    closeBeg();
     noBtn.style.transition = 'all 0.4s ease';
     noBtn.style.opacity = '0';
     noBtn.style.transform = 'scale(0.3) rotate(20deg)';
     setTimeout(() => noBtn.remove(), 420);
-    showToast('กดเพลินเลยนะ จริงๆ อยากไปต่อใช่ไหมล่ะ กดไปต่อได้แล้ว อย่าลีลา 5555 😆');
+    showBeg(
+      'กดเพลินเลยนะ 😝<br>จริงๆ อยากไปต่อใช่ไหมล่ะ<br>กดไปต่อได้แล้ว อย่าลีลา 5555',
+      { emoji: '😝', big: true, autoCloseMs: 6000 }
+    );
     spawnConfetti();
   }
 }
 
-function showBeg(text) {
-  document.getElementById('begText').textContent = text;
-  document.getElementById('begOverlay').classList.add('show');
+let begTimer = null;
+
+function showBeg(text, opts = {}) {
+  const overlay = document.getElementById('begOverlay');
+  const emojiEl = document.getElementById('begEmoji');
+  const textEl = document.getElementById('begText');
+
+  textEl.innerHTML = text;
+  emojiEl.textContent = opts.emoji || '🥺';
+  emojiEl.classList.toggle('big', !!opts.big);
+  textEl.classList.toggle('big', !!opts.big);
+  document.getElementById('begCloseHint').textContent = opts.autoCloseMs
+    ? 'แตะที่ไหนก็ได้เพื่อปิด (เดี๋ยวก็หายเอง)'
+    : 'แตะที่ไหนก็ได้เพื่อปิด';
+  overlay.classList.add('show');
+
+  clearTimeout(begTimer);
+  if (opts.autoCloseMs) {
+    begTimer = setTimeout(closeBeg, opts.autoCloseMs);
+  }
 }
 
 function closeBeg() {
+  clearTimeout(begTimer);
   document.getElementById('begOverlay').classList.remove('show');
 }
 
