@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ทำความรู้จักกันหน่อยไหม 🌿</title>
+<title>เฮ้ พี่มุก 🌿</title>
 <style>
   :root {
     --cream: #fdf6ee;
@@ -409,15 +409,16 @@
     <!-- SCREEN 1: INTRO -->
     <div class="screen active" id="screen-intro">
       <div class="emoji-hero">🌿✨</div>
-      <h1>เฮ้ มุก! สวัสดีนะ</h1>
+      <h1>เฮ้ พี่มุก 👋</h1>
       <p>
-        ผม <b>Thitiwut</b> นะครับ — เห็นว่าเราเพิ่งเริ่มรู้จักกันได้ไม่นาน
-        เลยลองทำหน้าเว็บเล็กๆ นี้ขึ้นมา ให้เราได้ทำความรู้จักกันมากขึ้นแบบสนุกๆ
-        ไม่กดดันอะไรทั้งนั้น 😊
+        <b>Thitiwut</b> นะ หรือเรียก <b>Daino</b> ก็ได้ 😊
       </p>
       <p>
-        มีทั้งคำถามแนะนำตัวเบาๆ และเกมเล็กๆ ให้ลองเล่นดู
-        ใช้เวลาไม่นานหรอก ลองดูกันไหม?
+        ว่างๆ เลยทำอะไรเล่นๆ ให้พี่ดู มีคำถามให้ตอบไม่กี่ข้อ
+        แล้วมีเกมแถมมาให้ด้วยอันนึง
+      </p>
+      <p>
+        ไม่นานเลย ลองดูไหม?
       </p>
       <div class="btn-row">
         <button class="btn" onclick="startJourney()">เริ่มเลย 🌸</button>
@@ -435,8 +436,8 @@
     <div class="screen" id="screen-tier">
       <div class="progress-bar"><div class="progress-fill" id="tierProgress"></div></div>
       <div class="progress-label" id="tierProgressLabel">สถานที่ 1 / 9</div>
-      <h1 style="text-align:center; font-size:1.15rem;">ถ้ามีโอกาสได้ไปด้วยกัน...</h1>
-      <p style="text-align:center;">ลองให้คะแนนสถานที่พวกนี้ดูหน่อยว่าชอบแค่ไหน 👇</p>
+      <h1 style="text-align:center; font-size:1.15rem;">ถ้าได้ไปเที่ยวด้วยกัน 🌿</h1>
+      <p style="text-align:center;">ที่พวกนี้พี่ชอบแค่ไหน?</p>
       <div class="tier-place">
         <div class="place-emoji" id="placeEmoji"></div>
         <div class="place-name" id="placeName"></div>
@@ -452,7 +453,7 @@
           <span class="tier-emoji">❌</span>ไม่เอา
         </button>
       </div>
-      <input type="text" class="other-input show" id="tierNote" placeholder="อยากบอกอะไรเพิ่มไหม (ไม่บังคับ) เช่น ร้านที่อยากไปโดยเฉพาะ...">
+      <input type="text" class="other-input show" id="tierNote" placeholder="มีร้านในใจอยู่แล้วก็พิมพ์บอกได้นะ">
       <div class="btn-row">
         <button class="btn secondary" onclick="nextTier()" id="tierNextBtn" disabled>ถัดไป →</button>
       </div>
@@ -461,13 +462,12 @@
     <!-- SCREEN 4: SUMMARY -->
     <div class="screen" id="screen-summary">
       <div class="emoji-hero">🎁</div>
-      <h1 style="text-align:center;">เย้ เสร็จแล้ว!</h1>
-      <p style="text-align:center;">นี่คือสิ่งที่ได้รู้จักกันเพิ่มขึ้นวันนี้ ✨</p>
+      <h1 style="text-align:center;">จบแล้ว เย้ 🎉</h1>
+      <p style="text-align:center;">สรุปมาให้แล้ว ✨</p>
       <div id="summaryContainer"></div>
       <div class="heart-divider">• • •</div>
       <p style="text-align:center; font-size:0.85rem;">
-        📸 อยากให้ลองแคปหน้าจอสรุปนี้ส่งกลับมาด้วยนะ เดี๋ยว
-        <span class="name-tag">Daino</span> จะได้เก็บไว้แพลนเดทให้ในอนาคต 😉
+        📸 แคปหน้านี้ส่งมาให้ดูหน่อยได้ไหม เดี๋ยวเก็บไว้ใช้ตอนหาที่เที่ยวให้ 😉
       </p>
       <div class="btn-row">
         <button class="btn" onclick="goToOutro()">ต่อไป →</button>
@@ -477,14 +477,14 @@
     <!-- SCREEN 5: OUTRO -->
     <div class="screen" id="screen-outro">
       <div class="emoji-hero">💛</div>
-      <h1 style="text-align:center;">ขอบคุณที่เล่นด้วยกันนะ</h1>
+      <h1 style="text-align:center;">ขอบคุณที่เล่นให้จนจบนะ 💛</h1>
       <p style="text-align:center;">
-        หวังว่าจะได้คุยกันมากขึ้นเรื่อยๆ นะ มุก 🌿<br>
-        ถ้าอยากคุยต่อ ทักมาได้เลยนะ ยินดีมากๆ เลย
+        ว่างๆ มาคุยกันต่อได้เลยนะ<br>
+        รออยู่ 🌿
       </p>
       <div class="btn-row">
         <a class="btn" href="https://www.instagram.com/dainodainov/" target="_blank" rel="noopener noreferrer">
-          ทักมาทาง IG: @dainodainov 💬
+          ทักมาที่ IG @dainodainov 💬
         </a>
       </div>
       <p class="credit-line" id="musicCredit"></p>
@@ -510,39 +510,39 @@ const state = {
 
 /* ---------- Quiz data ---------- */
 const RACKET_WRONG_OPTIONS = [
-  { label: 'Wilson Blade 98', reply: 'ใกล้เคียงอยู่นะ...แต่ยังไม่ใช่ตัวที่คิดถึงที่สุด 😏' },
-  { label: 'Wilson Clash 100', reply: 'อืม เกือบละ! แต่ลองอีกทีสิ 🎾' },
-  { label: 'Wilson Ultra Tour', reply: 'ไม้ดีนะ...แต่คำตอบที่แท้จริงมันน่ารักกว่านี้ 😌' },
-  { label: 'Wilson Pro Staff', reply: 'ผิดอีกแล้ว! คำใบ้: ไม่ใช่ไม้เทนนิสหรอก 👀' }
+  { label: 'Wilson Blade 98', reply: 'อันนี้ก็ดีนะ แต่ยังไม่ใช่ 🎾' },
+  { label: 'Wilson Clash 100', reply: 'เกือบละ ลองอีกที 👀' },
+  { label: 'Wilson Ultra Tour', reply: 'ไม่ใช่อันนี้ด้วย 😌' },
+  { label: 'Wilson Pro Staff', reply: 'ก็ไม่ใช่ 😳 เอ๊ะ หรือจะไม่มีคำตอบที่ถูก?' }
 ];
 
 const QUIZ_QUESTIONS = [
   {
     id: 'hobby',
     type: 'racket-trick',
-    question: 'ผมชอบเล่นเทนนิสมากเลย ลงแข่งบ่อยด้วยนะ 🎾<br>ลองทายดูสิว่า "สิ่งที่อยากได้ตัวต่อไป" คือชื่อรุ่นไหน?',
-    summaryLabel: '🎾 สิ่งที่อยากได้ตัวต่อไป (มากกว่าไม้เทนนิสอีก)'
+    question: 'เล่นเทนนิสอยู่ ลงแข่งบ่อยด้วย 🎾<br>ทายซิว่าอยากได้อะไรต่อไป?',
+    summaryLabel: '🎾 สิ่งที่อยากได้ต่อไป'
   },
   {
     id: 'food',
     type: 'choice',
-    question: 'ของหวานกับของคาว เลือกทางไหนดี? 🍮🍜',
-    summaryLabel: '🍮🍜 ของหวาน/ของคาวที่ชอบ',
-    options: ['ของหวานสายชานม/เบเกอรี่', 'ของคาวสายเผ็ดจัดจ้าน', 'ชอบทั้งคู่ กินได้หมด', 'แล้วแต่วันเลย']
+    question: 'ของกินสายไหน? 🍮🍜',
+    summaryLabel: '🍮🍜 ของกินที่ชอบ',
+    options: ['สายหวาน ชานม เบเกอรี่', 'สายเผ็ด ยิ่งเผ็ดยิ่งดี', 'ได้หมด ไม่เรื่องมาก', 'แล้วแต่วันเลย']
   },
   {
     id: 'evening',
     type: 'choice',
-    question: 'ตอนเย็นหลังเลิกงาน ปกติเป็นคนแบบไหน? 🌆',
-    summaryLabel: '🌆 สไตล์ตอนเย็นหลังเลิกงาน',
-    options: ['อยู่บ้านชิลๆ ดูซีรีส์', 'ออกไปหาของกินอร่อยๆ', 'ไปออกกำลังกาย/เล่นกีฬา', 'นัดเพื่อนสังสรรค์']
+    question: 'ตอนเย็นๆ พี่มุกทำอะไรอยู่? 🌆',
+    summaryLabel: '🌆 ตอนเย็นทำอะไร',
+    options: ['อยู่บ้าน ดูซีรีส์ชิลๆ', 'ออกไปหาของกิน', 'ออกกำลังกาย', 'นัดเพื่อนออกไปเที่ยว']
   },
   {
     id: 'game',
     type: 'choice',
-    question: 'เรื่องเกม ผมพอเล่นอยู่บ้าง แล้วปกติชอบเล่นเกมแนวไหนมากกว่ากัน? 🎮',
-    summaryLabel: '🎮 แนวเกมที่ชอบเล่น',
-    options: ['เกมมือถือแนว MOBA (เช่น ROV)', 'เกม RPG/เนื้อเรื่องยาวๆ', 'เกมสบายๆ ฮีลใจ (คาเฟ่/ปลูกผัก)', 'ไม่ค่อยได้เล่นเกมเท่าไหร่']
+    question: 'ปกติเล่นเกมแนวไหน? 🎮',
+    summaryLabel: '🎮 เกมที่เล่น',
+    options: ['เกมมือถือ MOBA (ROV อะไรพวกนี้)', 'เกมเนื้อเรื่องยาวๆ', 'เกมชิลๆ ฮีลใจ', 'ไม่ค่อยได้เล่น']
   }
 ];
 
@@ -553,12 +553,12 @@ const TIER_PLACES = [
   { key: 'cafe', emoji: '☕', name: 'คาเฟ่ / คาเฟ่อินดี้' },
   { key: 'movie', emoji: '🎬', name: 'ดูหนังโรงภาพยนตร์' },
   { key: 'night_market', emoji: '🏮', name: 'ตลาดนัด / สตรีทฟู้ดกลางคืน' },
-  { key: 'museum', emoji: '🖼️', name: 'พิพิธภัณฑ์ / แกลเลอรี่เจ๋งๆ' },
+  { key: 'museum', emoji: '🖼️', name: 'พิพิธภัณฑ์ / แกลเลอรี่' },
   { key: 'park', emoji: '🌳', name: 'สวนสาธารณะ / เดินเล่น' },
   { key: 'restaurant', emoji: '🍽️', name: 'ร้านอาหารบรรยากาศดี' },
   { key: 'boardgame', emoji: '🎲', name: 'Board Game Café / Cat Café' },
   { key: 'pottery', emoji: '🏺', name: 'Workshop เครื่องปั้นดินเผา / ทำเครื่องประดับเอง' },
-  { key: 'arcade', emoji: '🕹️', name: 'กินจุกเกม / อาร์เกด' }
+  { key: 'arcade', emoji: '🕹️', name: 'ตู้เกม / เกมกด' }
 ];
 
 const TIER_LABELS = { love: '❤️ รักมาก', meh: '🙂 เฉยๆ', nope: '❌ ไม่เอา' };
@@ -671,9 +671,9 @@ function renderChoiceQuestion(q, container) {
     html += `<div class="option ${isSelected}" data-idx="${i}" onclick="selectChoiceOption('${q.id}', ${i})">${opt}</div>`;
   });
   const otherSelected = savedAnswer && savedAnswer.isOther;
-  html += `<div class="option ${otherSelected ? 'selected' : ''}" data-idx="other" onclick="selectChoiceOption('${q.id}', 'other')">อื่นๆ (พิมพ์เอง)</div>`;
+  html += `<div class="option ${otherSelected ? 'selected' : ''}" data-idx="other" onclick="selectChoiceOption('${q.id}', 'other')">อย่างอื่น (พิมพ์เองได้)</div>`;
   html += `</div>`;
-  html += `<input type="text" class="other-input ${otherSelected ? 'show' : ''}" id="otherInput-${q.id}" placeholder="พิมพ์คำตอบของตัวเองได้เลย..." value="${otherSelected ? (savedAnswer.value || '') : ''}">`;
+  html += `<input type="text" class="other-input ${otherSelected ? 'show' : ''}" id="otherInput-${q.id}" placeholder="พิมพ์เองเลย..." value="${otherSelected ? (savedAnswer.value || '') : ''}">`;
   html += `<div class="btn-row"><button class="btn secondary" id="quizNextBtn" onclick="nextQuizQuestion('${q.id}')" ${savedAnswer ? '' : 'disabled'}>ถัดไป →</button></div>`;
   container.innerHTML = html;
 }
@@ -729,7 +729,7 @@ function renderRacketTrick(q, container) {
     html += `<div class="option" data-ridx="${i}" onclick="clickRacketOption(${i})">${opt.label}</div>`;
   });
   html += `</div>`;
-  html += `<div class="btn-row"><button class="btn secondary" id="quizNextBtn" disabled style="opacity:0.4;">เลือกดูให้ครบทุกตัวก่อนนะ 👀</button></div>`;
+  html += `<div class="btn-row"><button class="btn secondary" id="quizNextBtn" disabled style="opacity:0.4;">ลองกดดูให้ครบก่อนนะ 👀</button></div>`;
   container.innerHTML = html;
 }
 
@@ -754,16 +754,16 @@ function revealSpecialOption() {
   const special = document.createElement('div');
   special.className = 'option special';
   special.id = 'specialOption';
-  special.innerHTML = `มุก <span style="display:block; font-weight:400; font-size:0.82rem; margin-top:4px; color:var(--brown-soft);">อ๋อ...จริงๆ อยากได้คนนี้มากกว่าไม้เทนนิสอีกนะ 🎾💛</span>`;
+  special.innerHTML = `พี่มุก <span style="display:block; font-weight:400; font-size:0.82rem; margin-top:4px; color:var(--brown-soft);">อยากได้คนนี้มากกว่าไม้เทนนิสอีก 🎾💛</span>`;
   special.onclick = selectSpecialOption;
   container.appendChild(special);
   spawnConfetti();
-  showToast('เอ๊ะ มีตัวเลือกใหม่โผล่มา! 👀');
+  showToast('เอ๊ะ มีอันใหม่โผล่มา 👀');
 }
 
 function selectSpecialOption() {
   document.getElementById('specialOption').classList.add('selected');
-  state.quizAnswers['hobby'] = { value: 'มุก (คำตอบพิเศษ)', isOther: false };
+  state.quizAnswers['hobby'] = { value: 'พี่มุก 💛', isOther: false };
   const btn = document.getElementById('quizNextBtn');
   btn.disabled = false;
   btn.style.opacity = '1';
@@ -834,7 +834,7 @@ function renderSummary() {
   const container = document.getElementById('summaryContainer');
   let html = '';
 
-  html += `<div class="summary-box"><h3>🌿 เรื่องน่ารักๆ เกี่ยวกับตัวเอง</h3>`;
+  html += `<div class="summary-box"><h3>🌿 ที่พี่มุกตอบมา</h3>`;
   QUIZ_QUESTIONS.forEach(q => {
     const ans = state.quizAnswers[q.id];
     if (ans) {
@@ -843,7 +843,7 @@ function renderSummary() {
   });
   html += `</div>`;
 
-  html += `<div class="summary-box"><h3>📍 Tier List สถานที่เดท</h3>`;
+  html += `<div class="summary-box"><h3>📍 ที่เที่ยวที่พี่มุกชอบ</h3>`;
   TIER_PLACES.forEach(place => {
     const ans = state.tierAnswers[place.key];
     if (ans) {
