@@ -1320,9 +1320,11 @@ function clampToScreen(el, x, y) {
 }
 
 function pressNo(which) {
-  const n = ++noState[which];
   const noBtn = document.getElementById(which === 'intro' ? 'noIntro' : 'noOutro');
   const yesBtn = document.getElementById(which === 'intro' ? 'yesIntro' : 'yesOutro');
+  if (!noBtn || !yesBtn) return; // already gave up and left
+
+  const n = ++noState[which];
 
   // "ไม่" shrinks, the good button grows
   const noScale = Math.max(0.42, 1 - n * 0.11);
